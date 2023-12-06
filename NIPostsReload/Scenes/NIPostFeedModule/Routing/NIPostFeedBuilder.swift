@@ -13,7 +13,7 @@ protocol NIPostFeedBuilder {
 
 final class DefaultNIPostFeedBuilder: NIPostFeedBuilder {
     func createNiPostFeedModule(router: NIPostFeedRouter) -> UIViewController {
-        let presenter = DefaultNIPostFeedPresenter()
+        let presenter = DefaultNIPostFeedPresenter(router: router)
         let viewController = NIPostFeedViewController(presenter: presenter)
         
         presenter.setView(viewController)

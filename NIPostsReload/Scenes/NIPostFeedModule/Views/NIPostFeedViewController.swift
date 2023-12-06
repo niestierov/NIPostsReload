@@ -22,7 +22,7 @@ final class NIPostFeedViewController: UIViewController {
     // MARK: - UI Components -
     
     private lazy var tableView: UITableView = {
-        let table = UITableView(frame: view.safeAreaLayoutGuide.layoutFrame)
+        let table = UITableView()
         table.bounces = false
         table.backgroundColor = .white
         table.delegate = self
@@ -61,6 +61,7 @@ final class NIPostFeedViewController: UIViewController {
 private extension NIPostFeedViewController {
     func setupNavigationBar() {
         navigationController?.isNavigationBarHidden = true
+        view.backgroundColor = .white
     }
     
     func setupTableView() {
@@ -72,12 +73,6 @@ private extension NIPostFeedViewController {
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
-        
-        tableView.tableFooterView = UIView()
-    }
-    
-    @objc func sortButtonTapped() {
-
     }
 }
 
@@ -87,7 +82,7 @@ extension NIPostFeedViewController: NIPostFeedView {}
 
 extension NIPostFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        presenter.getPostFeedCount
     }
     
     func tableView(
@@ -96,7 +91,7 @@ extension NIPostFeedViewController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeue(cellType: NIPostFeedTableViewCell.self, at: indexPath)
         
-        let post = NIPost(postId: 1, timeshamp: 1, title: "Test Test Test Test Test Test Test Test TestTest Test Test", previewText: "Test Test Test2 Test Test TestTest Test TestTest Test TestTest Test TestTest Test Test Test Test Test", likesCount: 123)
+        let post = presenter.getPostItem(at: indexPath.item)
         
         cell.configure(with: post)
         
@@ -106,6 +101,6 @@ extension NIPostFeedViewController: UITableViewDataSource {
 
 extension NIPostFeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

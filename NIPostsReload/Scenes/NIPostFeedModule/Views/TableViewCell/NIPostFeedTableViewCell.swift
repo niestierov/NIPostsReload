@@ -48,7 +48,6 @@ final class NIPostFeedTableViewCell: UITableViewCell {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .equalSpacing
-        stackView.backgroundColor = .brown
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
