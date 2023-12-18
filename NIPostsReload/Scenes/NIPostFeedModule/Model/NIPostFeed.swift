@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct NIPostFeed: Codable {
+struct NIPostFeed: Decodable {
     let posts: [NIPost]?
 }
 
-struct NIPost: Codable {
+struct NIPost: Decodable {
     let postId: Int
     let timeshamp: TimeInterval?
     let title: String?

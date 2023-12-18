@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 protocol NetworkService {
-    func request<T: Codable>(
+    func request<T: Decodable>(
         endPoint: EndPoint,
         type: T.Type,
         completion: @escaping (Result<T?, Error>) -> Void
@@ -20,7 +20,7 @@ final class DefaultNetworkService: NetworkService {
     
     //MARK: - Internal -
     
-    func request<T: Codable>(
+    func request<T: Decodable>(
         endPoint: EndPoint,
         type: T.Type,
         completion: @escaping (Result<T?, Error>) -> Void
