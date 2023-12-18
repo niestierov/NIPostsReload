@@ -7,17 +7,21 @@
 
 import UIKit
 
-protocol NIPostFeedView: AnyObject { }
+protocol NIPostFeedView: AnyObject { 
+    func update() -> Void
+    func showErrorAlert(message: String) -> Void
+}
 
 final class NIPostFeedViewController: UIViewController {
-    private enum Constant {
-        static let navigationBarTitle = "NIPostFeed"
+    private struct Constant {
         static let sortFeedNavigationButtonImage = "arrow.up.and.down.text.horizontal"
+        static let defaultAlertErrorTitle = "Error"
     }
     
     // MARK: - Properties -
     
     private let presenter: NIPostFeedPresenter!
+    private var expandedCellsState = Set<Int>()
     
     // MARK: - UI Components -
     
@@ -28,10 +32,7 @@ final class NIPostFeedViewController: UIViewController {
         table.delegate = self
         table.dataSource = self
         table.rowHeight = UITableView.automaticDimension
-        table.register(
-            NIPostFeedTableViewCell.self,
-            forCellReuseIdentifier: NIPostFeedTableViewCell.identifier
-        )
+        table.register(NIPostFeedTableViewCell.self)
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -43,6 +44,7 @@ final class NIPostFeedViewController: UIViewController {
 
         setupNavigationBar()
         setupTableView()
+        presenter.initialSetup()
     }
     
     init(presenter: NIPostFeedPresenter) {
@@ -74,15 +76,48 @@ private extension NIPostFeedViewController {
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
+    
+    func isExpandedCellState(for cellIndex: Int) -> Bool {
+        expandedCellsState.contains(cellIndex)
+    }
+    
+    func updateCell(
+        _ cell: NIPostFeedTableViewCell,
+        at cellIndex: Int
+    ) {
+        UIView.animate(withDuration: 0.2) { [weak self] in
+            cell.layoutIfNeeded()
+            self?.tableView.performBatchUpdates(nil, completion: nil)
+        }
+        
+        if isExpandedCellState(for: cellIndex) {
+            expandedCellsState.remove(cellIndex)
+        } else {
+            expandedCellsState.insert(cellIndex)
+        }
+    }
 }
 
 // MARK: - NIPostFeedView -
 
-extension NIPostFeedViewController: NIPostFeedView {}
+extension NIPostFeedViewController: NIPostFeedView {
+    func update() {
+        tableView.reloadData()
+    }
+    
+    func showErrorAlert(message: String) {
+        showAlert(
+            title: Constant.defaultAlertErrorTitle,
+            message: message
+        )
+    }
+}
+
+// MARK: - UITableViewDataSource -
 
 extension NIPostFeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        presenter.getPostFeedCount
+        presenter.getPostFeedCount()
     }
     
     func tableView(
@@ -91,13 +126,20 @@ extension NIPostFeedViewController: UITableViewDataSource {
     ) -> UITableViewCell {
         let cell = tableView.dequeue(cellType: NIPostFeedTableViewCell.self, at: indexPath)
         
-        let post = presenter.getPostItem(at: indexPath.item)
-        
-        cell.configure(with: post)
+        let post = presenter.getPostItem(at: indexPath.row)
+
+        cell.configure(
+            with: post,
+            isExpanded: isExpandedCellState(for: indexPath.row)
+        ) { [unowned self] in
+            self.updateCell(cell, at: indexPath.row)
+        }
         
         return cell
     }
 }
+
+// MARK: - UITableViewDelegate -
 
 extension NIPostFeedViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

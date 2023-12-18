@@ -8,7 +8,7 @@
 import Foundation
 
 struct NIPostFeed: Codable {
-    let posts: [NIPost]
+    let posts: [NIPost]?
 }
 
 struct NIPost: Codable {
