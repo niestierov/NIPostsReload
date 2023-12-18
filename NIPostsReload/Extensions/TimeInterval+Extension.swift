@@ -8,16 +8,12 @@
 import Foundation
 
 extension TimeInterval {
-    private enum Constant {
-        static let defaultDateFormat = "MMM d, HH:mm"
-        static let defaultDateLocale = "en_US"
-    }
-    
     func convertToDate(
-        with format: String = Constant.defaultDateFormat,
-        locale: String = Constant.defaultDateLocale
+        with format: String = "MMM d, HH:mm",
+        locale: String = "en_US"
     ) -> String {
         let dateFormatter = DateFormatter()
+        
         dateFormatter.dateFormat = format
         dateFormatter.locale = Locale(identifier: locale)
 
