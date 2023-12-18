@@ -12,12 +12,24 @@ protocol NIPostFeedBuilder {
 }
 
 final class DefaultNIPostFeedBuilder: NIPostFeedBuilder {
+
+    // MARK: - Internal -
+    
     func createNiPostFeedModule(router: NIPostFeedRouter) -> UIViewController {
-        let presenter = DefaultNIPostFeedPresenter(router: router)
+        let presenter = DefaultNIPostFeedPresenter(
+            router: router,
+            networkService: makeNetworkService()
+        )
         let viewController = NIPostFeedViewController(presenter: presenter)
         
         presenter.setView(viewController)
         
         return viewController
+    }
+    
+    // MARK: - Private -
+    
+    private func makeNetworkService() -> NetworkService {
+        return DefaultServiceLocator.shared.resolve() ?? DefaultNetworkService()
     }
 }

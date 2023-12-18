@@ -15,16 +15,14 @@ final class DefaultNIPostFeedRouter: NIPostFeedRouter {
     
     // MARK: - Properties -
     
-    private let builder: NIPostFeedBuilder
-    private let navigationController: UINavigationController?
+    private let builder = DefaultNIPostFeedBuilder()
+    private let navigationController: UINavigationController
     
     // MARK: - Life Cycle -
     
     init(
-        builder: NIPostFeedBuilder,
-        navigationController: UINavigationController? = nil
+        navigationController: UINavigationController
     ) {
-        self.builder = builder
         self.navigationController = navigationController
     }
     
@@ -32,6 +30,6 @@ final class DefaultNIPostFeedRouter: NIPostFeedRouter {
     
     func showNiPostFeedModule() {
         let niPostFeedModule = builder.createNiPostFeedModule(router: self)
-        navigationController?.setViewControllers([niPostFeedModule], animated: true)
+        navigationController.setViewControllers([niPostFeedModule], animated: true)
     }
 }
