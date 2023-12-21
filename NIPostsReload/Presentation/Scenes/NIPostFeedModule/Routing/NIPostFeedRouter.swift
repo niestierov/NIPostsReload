@@ -8,28 +8,22 @@
 import UIKit
 
 protocol NIPostFeedRouter {
-    func showNiPostFeedModule()
+    func showNiPostDetailsModule()
 }
 
 final class DefaultNIPostFeedRouter: NIPostFeedRouter {
     
     // MARK: - Properties -
     
-    private let builder = DefaultNIPostFeedBuilder()
     private let navigationController: UINavigationController
     
-    // MARK: - Life Cycle -
+    // MARK: - Init -
     
-    init(
-        navigationController: UINavigationController
-    ) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     // MARK: - Internal -
     
-    func showNiPostFeedModule() {
-        let niPostFeedModule = builder.createNiPostFeedModule(router: self)
-        navigationController.setViewControllers([niPostFeedModule], animated: true)
-    }
+    func showNiPostDetailsModule() { }
 }

@@ -7,21 +7,26 @@
 
 import UIKit
 
-extension UIViewController {
-    struct AlertButtonAction {
-        let title: String
-        let style: UIAlertAction.Style
-        let completion: (() -> Void)?
-        
-        static func `default`() -> AlertButtonAction {
-            AlertButtonAction(
-                title: "Okay",
-                style: .default,
-                completion: nil
-            )
-        }
-    }
+struct AlertButtonAction {
+    let title: String
+    let style: UIAlertAction.Style
+    let completion: (() -> Void)?
     
+    static func `default`() -> AlertButtonAction {
+        AlertButtonAction(
+            title: "Okay",
+            style: .default,
+            completion: nil
+        )
+    }
+}
+
+struct AlertConstant {
+    static let defaultAlertErrorTitle = "Error"
+    static let defaultAlertErrorMessage = "Something went wrong..."
+}
+
+extension UIViewController {
     func showAlert(
         title: String,
         message: String,

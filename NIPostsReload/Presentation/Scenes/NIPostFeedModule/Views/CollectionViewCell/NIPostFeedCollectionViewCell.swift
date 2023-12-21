@@ -1,5 +1,5 @@
 //
-//  NIPostFeedTableViewCell.swift
+//  NIPostFeedCollectionViewCell.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 06.12.2023.
@@ -7,10 +7,8 @@
 
 import UIKit
 
-final class NIPostFeedTableViewCell: UITableViewCell {
+final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     private struct Constant {
-        static let defaultHorizontalInset: CGFloat = 20
-        static let defaultVerticalInset: CGFloat = 20
         static let defaultDescriptionNumberOfLines = 2
         static let systemLikesImage = "heart.circle.fill"
         static let expandTitle = "Expand"
@@ -22,8 +20,6 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.alignment = .fill
-        stackView.distribution = .fill
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -32,7 +28,6 @@ final class NIPostFeedTableViewCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -47,7 +42,6 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     private lazy var horizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -55,16 +49,13 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     private lazy var likesStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.alignment = .fill
         stackView.spacing = 5
-        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     private lazy var postLikesLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,7 +70,6 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     private lazy var postDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -101,8 +91,8 @@ final class NIPostFeedTableViewCell: UITableViewCell {
 
     // MARK: - Life Cycle -
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         setupView()
     }
@@ -115,20 +105,23 @@ final class NIPostFeedTableViewCell: UITableViewCell {
 
     // MARK: - Internal -
     
-    func configure(with post: NIPost, isExpanded: Bool, update: @escaping () -> Void) {
+    func configure(with post: NIPostViewState.Post) {
         postTitleLabel.text = post.title
         postDescriptionLabel.text = post.previewText
-        postLikesLabel.text = (post.likesCount ?? .zero).stringValue
-        postDateLabel.text = post.timeshamp?.convertToDate()
-        updateHandler = update
+        postLikesLabel.text = post.likesCount.stringValue
+        postDateLabel.text = post.date
         
-        updateContent(with: isExpanded)
+        updateContent(with: post.isExpanded)
+    }
+    
+    func setUpdateHandler(update: @escaping () -> Void) {
+        updateHandler = update
     }
 }
 
 // MARK: - Private -
 
-private extension NIPostFeedTableViewCell {
+private extension NIPostFeedCollectionViewCell {
     func setupView() {
         contentView.backgroundColor = .white
         
@@ -146,22 +139,10 @@ private extension NIPostFeedTableViewCell {
         likesStackView.addArrangedSubview(postLikesLabel)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(
-                equalTo: contentView.topAnchor,
-                constant: Constant.defaultVerticalInset
-            ),
-            mainStackView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -Constant.defaultVerticalInset
-            ),
-            mainStackView.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Constant.defaultHorizontalInset
-            ),
-            mainStackView.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Constant.defaultHorizontalInset
-            ),
+            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
             postExpandButton.heightAnchor.constraint(equalToConstant: 35)
         ])
@@ -177,21 +158,19 @@ private extension NIPostFeedTableViewCell {
     }
     
     func updateExpandButtonTitle() {
-        let newTitle = postDescriptionLabel.numberOfLines == .zero ? Constant.collapseTitle : Constant.expandTitle
+        let title = postDescriptionLabel.numberOfLines == .zero ? Constant.collapseTitle : Constant.expandTitle
         
-        postExpandButton.setTitle(newTitle, for: .normal)
+        postExpandButton.setTitle(title, for: .normal)
     }
     
     func updateExpandButtonVisibility() {
-        postExpandButton.isHidden = postDescriptionLabel.doesTextFitInLines()
+        postExpandButton.isHidden = postDescriptionLabel.fitsInLines()
     }
     
     @objc func tappedExpandButton() {
         postDescriptionLabel.numberOfLines = postDescriptionLabel.numberOfLines == .zero ? Constant.defaultDescriptionNumberOfLines : .zero
        
         updateExpandButtonTitle()
-        postExpandButton.layoutIfNeeded()
-
         updateHandler?()
     }
 }

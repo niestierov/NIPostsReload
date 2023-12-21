@@ -9,22 +9,10 @@ import Foundation
 import Alamofire
 
 private struct EndPointConstant {
-    static let baseUrl = "https://raw.githubusercontent.com"
+    static let baseUrl = "https://raw.githubusercontent.com/anton-natife/jsons/master/api"
+    static let listPath =  "/main"
+    static let detailsPath =  "/posts"
     static let jsonFormat = ".json"
-    
-    enum UrlPath {
-        case list
-        case details(id: Int)
-        
-        var component: String {
-            switch self {
-            case .list:
-                return "/anton-natife/jsons/master/api/main.json"
-            case .details:
-                return "/anton-natife/jsons/master/api/posts/"
-            }
-        }
-    }
 }
 
 enum EndPoint {
@@ -66,9 +54,9 @@ enum EndPoint {
     private var path: String {
         switch self {
         case .list:
-            return EndPointConstant.UrlPath.list.component
+            return EndPointConstant.listPath + EndPointConstant.jsonFormat
         case .details(let id):
-            return EndPointConstant.UrlPath.details(id: id).component + String(id) + EndPointConstant.jsonFormat
+            return EndPointConstant.detailsPath + "/" + id.stringValue + EndPointConstant.jsonFormat
         }
     }
 }

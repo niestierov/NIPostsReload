@@ -1,0 +1,42 @@
+//
+//  NIPostViewState.swift
+//  NIPostsReload
+//
+//  Created by Denys Niestierov on 19.12.2023.
+//
+
+import Foundation
+
+struct NIPostViewState {
+    struct Post {
+        let title: String
+        let previewText: String
+        let date: String
+        let likesCount: Int
+        
+        var isExpanded: Bool = false
+    }
+    
+    var posts: [Post]
+}
+
+extension NIPostViewState {
+    static func makeViewState(for posts: [NIPost]) -> NIPostViewState {
+        let postViewStates = posts.compactMap { post in
+            let title = post.title ?? ""
+            let previewText = post.previewText ?? ""
+            let likesCount = post.likesCount ?? .zero
+            let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero)
+            let dateString = date.stringRepresentation()
+            
+            return NIPostViewState.Post(
+                title: title,
+                previewText: previewText,
+                date: dateString,
+                likesCount: likesCount
+            )
+        }
+        
+        return NIPostViewState(posts: postViewStates)
+    }
+}

@@ -8,7 +8,7 @@
 import UIKit
 
 extension UILabel {
-    func doesTextFitInLines() -> Bool {
+    func fitsInLines() -> Bool {
         guard let text = self.text,
               let font = self.font else {
             return false

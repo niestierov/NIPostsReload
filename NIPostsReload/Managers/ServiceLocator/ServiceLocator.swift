@@ -29,9 +29,9 @@ final class DefaultServiceLocator: ServiceLocator {
         services[key] = service
     }
 
-    func resolve<T>() -> T? {
+    func resolve<T>() -> T {
         let key = typeName(T.self)
-        return services[key] as? T
+        return services[key] as! T
     }
     
     // MARK: Private

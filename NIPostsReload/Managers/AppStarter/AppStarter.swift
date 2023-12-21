@@ -1,5 +1,5 @@
 //
-//  AppCoordinator.swift
+//  AppStarter.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 18.12.2023.
@@ -7,29 +7,29 @@
 
 import UIKit
 
-final class AppCoordinator {
+final class AppStarter {
     
     // MARK: - Properties -
     
     private var window: UIWindow?
 
-    // MARK: - Life Cycle -
+    // MARK: - Init -
     
-    init() {}
+    init() {
+        registerServices()
+    }
 
     // MARK: - Internal -
     
     func start(in windowScene: UIWindowScene) {
-        setupServices()
-        
         let navigationController = UINavigationController()
-        let router = DefaultNIPostFeedRouter(navigationController: navigationController)
+        let niPostFeedModule = DefaultNIPostFeedBuilder().createNiPostFeedModule(for: navigationController)
 
         configureWindow(with: navigationController, in: windowScene)
         
-        router.showNiPostFeedModule()
+        navigationController.setViewControllers([niPostFeedModule], animated: true)
     }
-    
+
     // MARK: - Private -
 
     private func configureWindow(
@@ -44,11 +44,11 @@ final class AppCoordinator {
     }
     
     private func registerNetworkService() {
-        let networkService = DefaultNetworkService()
+        let networkService: NetworkService = DefaultNetworkService()
         DefaultServiceLocator.shared.register(service: networkService)
     }
     
-    private func setupServices() {
+    private func registerServices() {
         registerNetworkService()
     }
 }

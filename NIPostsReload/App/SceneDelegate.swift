@@ -7,12 +7,12 @@
 
 import UIKit
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // MARK: - Properties -
     
     var window: UIWindow?
-    private var appCoordinator: AppCoordinator?
+    private var appStarter: AppStarter?
 
     // MARK: - Internal -
     
@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        appCoordinator = AppCoordinator()
-        appCoordinator?.start(in: windowScene)
+        appStarter = AppStarter()
+        appStarter?.start(in: windowScene)
     }
 }
