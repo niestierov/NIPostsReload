@@ -7,14 +7,14 @@
 
 import UIKit
 
-extension UICollectionViewCell: StringIdentifiable { }
+extension UITableViewCell: StringIdentifiable { }
 
-extension UICollectionView {
+extension UITableView {
     func register(_ cellType: StringIdentifiable.Type) {
-        register(cellType.self, forCellWithReuseIdentifier: cellType.identifier)
+        register(cellType.self, forCellReuseIdentifier: cellType.identifier)
     }
 
     func dequeue<T: StringIdentifiable>(cellType: T.Type, at indexPath: IndexPath) -> T {
-        dequeueReusableCell(withReuseIdentifier: cellType.identifier, for: indexPath) as! T
+        dequeueReusableCell(withIdentifier: cellType.identifier, for: indexPath) as! T
     }
 }

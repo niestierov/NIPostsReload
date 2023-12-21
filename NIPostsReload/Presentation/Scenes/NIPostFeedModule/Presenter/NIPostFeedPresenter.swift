@@ -11,7 +11,7 @@ protocol NIPostFeedPresenter: AnyObject {
     func initialSetup()
     func getPostFeedCount() -> Int
     func getPostItem(at index: Int) -> NIPostViewState.Post
-    func didSelectItem(at: Int)
+    func didSelectCell(at: Int)
     func changePostIsExpandedState(at index: Int)
 }
 
@@ -51,7 +51,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         postViewState.posts[index]
     }
     
-    func didSelectItem(at: Int) {
+    func didSelectCell(at: Int) {
         router.showNiPostDetailsModule()
     }
     

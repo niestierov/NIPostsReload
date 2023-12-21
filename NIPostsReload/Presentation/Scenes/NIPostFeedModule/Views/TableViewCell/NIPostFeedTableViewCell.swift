@@ -1,5 +1,5 @@
 //
-//  NIPostFeedCollectionViewCell.swift
+//  NIPostFeedTableViewCell.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 06.12.2023.
@@ -7,8 +7,10 @@
 
 import UIKit
 
-final class NIPostFeedCollectionViewCell: UICollectionViewCell {
+final class NIPostFeedTableViewCell: UITableViewCell {
     private struct Constant {
+        static let defaultHorizontalInset: CGFloat = 20
+        static let defaultVerticalInset: CGFloat = 20
         static let defaultDescriptionNumberOfLines = 2
         static let systemLikesImage = "heart.circle.fill"
         static let expandTitle = "Expand"
@@ -91,8 +93,8 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Life Cycle -
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupView()
     }
@@ -121,7 +123,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
 
 // MARK: - Private -
 
-private extension NIPostFeedCollectionViewCell {
+private extension NIPostFeedTableViewCell {
     func setupView() {
         contentView.backgroundColor = .white
         
@@ -139,10 +141,22 @@ private extension NIPostFeedCollectionViewCell {
         likesStackView.addArrangedSubview(postLikesLabel)
         
         NSLayoutConstraint.activate([
-            mainStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            mainStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainStackView.topAnchor.constraint(
+                equalTo: contentView.topAnchor,
+                constant: Constant.defaultVerticalInset
+            ),
+            mainStackView.bottomAnchor.constraint(
+                equalTo: contentView.bottomAnchor,
+                constant: -Constant.defaultVerticalInset
+            ),
+            mainStackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: Constant.defaultHorizontalInset
+            ),
+            mainStackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -Constant.defaultHorizontalInset
+            ),
             
             postExpandButton.heightAnchor.constraint(equalToConstant: 35)
         ])

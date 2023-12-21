@@ -18,11 +18,10 @@
 		9A290E022B1D264B000ABB78 /* NIPostFeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A290E012B1D264B000ABB78 /* NIPostFeedBuilder.swift */; };
 		9A290E042B1D2790000ABB78 /* NIPostFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A290E032B1D2790000ABB78 /* NIPostFeedViewController.swift */; };
 		9A290E062B1D27D8000ABB78 /* NIPostFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A290E052B1D27D8000ABB78 /* NIPostFeedPresenter.swift */; };
-		9A4593C22B207F9300B70EEC /* NIPostFeedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C12B207F9300B70EEC /* NIPostFeedCollectionViewCell.swift */; };
+		9A4593C22B207F9300B70EEC /* NIPostFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C12B207F9300B70EEC /* NIPostFeedTableViewCell.swift */; };
 		9A4593C52B207FF200B70EEC /* StringIdentifiable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C42B207FF200B70EEC /* StringIdentifiable+Extension.swift */; };
 		9A4593C72B20800200B70EEC /* UICollectionView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */; };
 		9A4593C92B208A2500B70EEC /* NIPostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C82B208A2500B70EEC /* NIPostFeed.swift */; };
-		9A569CA22B34348600753F72 /* UIViewController+CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A569CA12B34348600753F72 /* UIViewController+CompositionalLayout.swift */; };
 		9AAE49102B28A9AC00E5EB77 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAE490F2B28A9AC00E5EB77 /* NetworkService.swift */; };
 		9AAE49122B28A9BF00E5EB77 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAE49112B28A9BF00E5EB77 /* EndPoint.swift */; };
 		9AAE49152B28AAD900E5EB77 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9AAE49142B28AAD900E5EB77 /* Alamofire */; };
@@ -48,11 +47,10 @@
 		9A290E012B1D264B000ABB78 /* NIPostFeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedBuilder.swift; sourceTree = "<group>"; };
 		9A290E032B1D2790000ABB78 /* NIPostFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedViewController.swift; sourceTree = "<group>"; };
 		9A290E052B1D27D8000ABB78 /* NIPostFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedPresenter.swift; sourceTree = "<group>"; };
-		9A4593C12B207F9300B70EEC /* NIPostFeedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedCollectionViewCell.swift; sourceTree = "<group>"; };
+		9A4593C12B207F9300B70EEC /* NIPostFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedTableViewCell.swift; sourceTree = "<group>"; };
 		9A4593C42B207FF200B70EEC /* StringIdentifiable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringIdentifiable+Extension.swift"; sourceTree = "<group>"; };
 		9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Reusable.swift"; sourceTree = "<group>"; };
 		9A4593C82B208A2500B70EEC /* NIPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeed.swift; sourceTree = "<group>"; };
-		9A569CA12B34348600753F72 /* UIViewController+CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CompositionalLayout.swift"; sourceTree = "<group>"; };
 		9AAE490F2B28A9AC00E5EB77 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9AAE49112B28A9BF00E5EB77 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		9AB3839C2B32F8A100D690EA /* NIPostFeedAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedAPIService.swift; sourceTree = "<group>"; };
@@ -155,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				9A290E032B1D2790000ABB78 /* NIPostFeedViewController.swift */,
-				9A4593C02B207F6A00B70EEC /* CollectionViewCell */,
+				9A4593C02B207F6A00B70EEC /* TableViewCell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -185,18 +183,18 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		9A4593C02B207F6A00B70EEC /* CollectionViewCell */ = {
+		9A4593C02B207F6A00B70EEC /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				9A4593C12B207F9300B70EEC /* NIPostFeedCollectionViewCell.swift */,
+				9A4593C12B207F9300B70EEC /* NIPostFeedTableViewCell.swift */,
 			);
-			path = CollectionViewCell;
+			path = TableViewCell;
 			sourceTree = "<group>";
 		};
 		9A4593C32B207FC900B70EEC /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				9A569C9F2B34346300753F72 /* UIViewController */,
+				9A0A8F162B2C68960073D2EE /* UIViewController+Alert.swift */,
 				9A4593C42B207FF200B70EEC /* StringIdentifiable+Extension.swift */,
 				9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */,
 				9A07DFCB2B20BB5E00C87512 /* StringConvertible+Extension.swift */,
@@ -205,15 +203,6 @@
 				9AEEF4132B29CED600E25081 /* JSONDecoder+Extension.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		9A569C9F2B34346300753F72 /* UIViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9A0A8F162B2C68960073D2EE /* UIViewController+Alert.swift */,
-				9A569CA12B34348600753F72 /* UIViewController+CompositionalLayout.swift */,
-			);
-			path = UIViewController;
 			sourceTree = "<group>";
 		};
 		9AAE490E2B28A87A00E5EB77 /* Network */ = {
@@ -369,13 +358,12 @@
 				9A290E062B1D27D8000ABB78 /* NIPostFeedPresenter.swift in Sources */,
 				9A07DFCC2B20BB5E00C87512 /* StringConvertible+Extension.swift in Sources */,
 				9AB3839D2B32F8A100D690EA /* NIPostFeedAPIService.swift in Sources */,
-				9A569CA22B34348600753F72 /* UIViewController+CompositionalLayout.swift in Sources */,
 				9A4593C52B207FF200B70EEC /* StringIdentifiable+Extension.swift in Sources */,
 				9A4593C92B208A2500B70EEC /* NIPostFeed.swift in Sources */,
 				9A290E022B1D264B000ABB78 /* NIPostFeedBuilder.swift in Sources */,
 				9AEEF4142B29CED600E25081 /* JSONDecoder+Extension.swift in Sources */,
 				9A290E002B1D2641000ABB78 /* NIPostFeedRouter.swift in Sources */,
-				9A4593C22B207F9300B70EEC /* NIPostFeedCollectionViewCell.swift in Sources */,
+				9A4593C22B207F9300B70EEC /* NIPostFeedTableViewCell.swift in Sources */,
 				9ABEE0A72B30432B009ED963 /* AppStarter.swift in Sources */,
 				9AAE49102B28A9AC00E5EB77 /* NetworkService.swift in Sources */,
 				9AAE49122B28A9BF00E5EB77 /* EndPoint.swift in Sources */,
