@@ -64,7 +64,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
 
 private extension DefaultNIPostFeedPresenter {
     func updatePosts() {
-        apiService.fetchPosts(with: EndPoint.list) { [weak self] result in
+        apiService.fetchPosts { [weak self] result in
             guard let self else {
                 return
             }

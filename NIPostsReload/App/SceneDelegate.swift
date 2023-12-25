@@ -12,17 +12,17 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties -
     
     var window: UIWindow?
-    private var appStarter: AppStarter?
+    private let appStarter = AppStarter()
 
     // MARK: - Internal -
     
     func scene(
-        _ scene: UIScene, willConnectTo session: UISceneSession,
+        _ scene: UIScene, 
+        willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        appStarter = AppStarter()
-        appStarter?.start(in: windowScene)
+        appStarter.start(in: windowScene)
     }
 }

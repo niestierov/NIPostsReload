@@ -8,10 +8,7 @@
 import Foundation
 
 protocol NIPostFeedAPIService {
-    func fetchPosts(
-        with endpoint: EndPoint,
-        completion: @escaping (Result<[NIPost]?, Error>) -> Void
-    )
+    func fetchPosts(completion: @escaping (Result<[NIPost]?, Error>) -> Void)
 }
 
 final class DefaultNIPostFeedAPIService: NIPostFeedAPIService {
@@ -28,14 +25,9 @@ final class DefaultNIPostFeedAPIService: NIPostFeedAPIService {
     
     // MARK: - Internal -
     
-    func fetchPosts(
-        with endpoint: EndPoint,
-        completion: @escaping (Result<[NIPost]?, Error>) -> Void
-    ) {
-        let endpoint = EndPoint.list
-        
+    func fetchPosts(completion: @escaping (Result<[NIPost]?, Error>) -> Void) {
         networkService.request(
-            endPoint: endpoint,
+            endPoint: EndPoint.list,
             type: NIPostFeed.self
         ) { response in
             switch response {
