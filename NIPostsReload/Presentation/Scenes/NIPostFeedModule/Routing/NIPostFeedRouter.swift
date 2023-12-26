@@ -7,23 +7,10 @@
 
 import UIKit
 
-protocol NIPostFeedRouter {
+protocol NIPostFeedRouter: BaseRouter {
     func showNiPostDetailsModule()
 }
 
-final class DefaultNIPostFeedRouter: NIPostFeedRouter {
-    
-    // MARK: - Properties -
-    
-    private let navigationController: UINavigationController
-    
-    // MARK: - Init -
-    
-    init(navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-    
-    // MARK: - Internal -
-    
+final class DefaultNIPostFeedRouter: BaseRouter, NIPostFeedRouter {
     func showNiPostDetailsModule() { }
 }

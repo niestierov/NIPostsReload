@@ -1,5 +1,5 @@
 //
-//  Date+StringRepresentation.swift
+//  Date+Extension.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 06.12.2023.
@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    func stringRepresentation(
+    func asFormattedString(
         with format: String = "MMM d, HH:mm",
         locale: String = "en_US"
     ) -> String {

@@ -80,8 +80,7 @@ final class NIPostFeedTableViewCell: UITableViewCell {
         button.setTitle(Constant.expandTitle, for: .normal)
         button.tintColor = .white
         button.backgroundColor = .darkGray
-        button.layer.cornerRadius = 12
-        button.layer.cornerCurve = .continuous
+        button.applyRoundedCorners(cornerRadius: 12)
         button.addTarget(self, action: #selector(tappedExpandButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -90,7 +89,8 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     // MARK: - Properties -
     
     private var updateHandler: (() -> Void)?
-
+    private var isExpanded = false
+    
     // MARK: - Life Cycle -
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -113,7 +113,8 @@ final class NIPostFeedTableViewCell: UITableViewCell {
         postLikesLabel.text = post.likesCount.stringValue
         postDateLabel.text = post.date
         
-        updateContent(with: post.isExpanded)
+        self.isExpanded = post.isExpanded
+        updateContent()
     }
     
     func setUpdateHandler(update: @escaping () -> Void) {
@@ -164,7 +165,7 @@ private extension NIPostFeedTableViewCell {
         layoutIfNeeded()
     }
     
-    func updateContent(with isExpanded: Bool) {
+    func updateContent() {
         postDescriptionLabel.numberOfLines = isExpanded ? .zero : Constant.defaultDescriptionNumberOfLines
         
         updateExpandButtonTitle()
@@ -172,7 +173,7 @@ private extension NIPostFeedTableViewCell {
     }
     
     func updateExpandButtonTitle() {
-        let title = postDescriptionLabel.numberOfLines == .zero ? Constant.collapseTitle : Constant.expandTitle
+        let title = isExpanded ? Constant.collapseTitle : Constant.expandTitle
         
         postExpandButton.setTitle(title, for: .normal)
     }
@@ -183,7 +184,8 @@ private extension NIPostFeedTableViewCell {
     
     @objc func tappedExpandButton() {
         postDescriptionLabel.numberOfLines = postDescriptionLabel.numberOfLines == .zero ? Constant.defaultDescriptionNumberOfLines : .zero
-       
+        isExpanded.toggle()
+        
         updateExpandButtonTitle()
         updateHandler?()
     }

@@ -14,7 +14,7 @@ struct NIPostViewState {
         let date: String
         let likesCount: Int
         
-        var isExpanded: Bool = false
+        var isExpanded = false
     }
     
     var posts: [Post]
@@ -27,7 +27,7 @@ extension NIPostViewState {
             let previewText = post.previewText ?? ""
             let likesCount = post.likesCount ?? .zero
             let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero)
-            let dateString = date.stringRepresentation()
+            let dateString = date.asFormattedString()
             
             return NIPostViewState.Post(
                 title: title,

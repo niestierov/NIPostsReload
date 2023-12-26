@@ -11,7 +11,7 @@ protocol NIPostFeedPresenter: AnyObject {
     func initialSetup()
     func getPostFeedCount() -> Int
     func getPostItem(at index: Int) -> NIPostViewState.Post
-    func didSelectCell(at: Int)
+    func didSelectPost(at: Int)
     func changePostIsExpandedState(at index: Int)
 }
 
@@ -20,9 +20,9 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     // MARK: - Properties -
     
     private let router: NIPostFeedRouter
-    private weak var view: NIPostFeedView?
+    private weak var view: NIPostFeedView!
     private let apiService: NIPostFeedAPIService
-    private var postViewState: NIPostViewState
+    private var postViewState = NIPostViewState(posts: [])
     
     // MARK: - Life Cycle -
     
@@ -34,7 +34,6 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         self.view = view
         self.router = router
         self.apiService = apiService
-        postViewState = NIPostViewState(posts: [])
     }
     
     // MARK: - Internal -
@@ -51,7 +50,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         postViewState.posts[index]
     }
     
-    func didSelectCell(at: Int) {
+    func didSelectPost(at: Int) {
         router.showNiPostDetailsModule()
     }
     
@@ -72,7 +71,6 @@ private extension DefaultNIPostFeedPresenter {
             switch result {
             case .success(let posts):
                 guard let posts else {
-                    view?.showError(message: AlertConstant.defaultAlertErrorMessage)
                     return
                 }
                 composePostViewStates(for: posts)

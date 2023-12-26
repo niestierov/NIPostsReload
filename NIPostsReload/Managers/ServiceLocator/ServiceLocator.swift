@@ -7,15 +7,11 @@
 
 import Foundation
 
-protocol ServiceLocator {
-    func resolve<T>() -> T?
-}
-
-final class DefaultServiceLocator: ServiceLocator {
+final class ServiceLocator {
     
     // MARK: Properties
     
-    static let shared = DefaultServiceLocator()
+    static let shared = ServiceLocator()
     private lazy var services = [String: Any]()
     
     // MARK: Init

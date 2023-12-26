@@ -8,19 +8,19 @@
 import UIKit
 
 protocol NIPostFeedBuilder {
-    func createNiPostFeedModule(for navigationController: UINavigationController) -> UIViewController
+    func createNiPostFeedModule() -> UINavigationController
 }
 
 final class DefaultNIPostFeedBuilder: NIPostFeedBuilder {
 
     // MARK: - Internal -
     
-    func createNiPostFeedModule(for navigationController: UINavigationController) -> UIViewController {
-        let networkService: NetworkService = DefaultServiceLocator.shared.resolve()
+    func createNiPostFeedModule() -> UINavigationController {
+        let networkService: NetworkService = ServiceLocator.shared.resolve()
         let apiService: NIPostFeedAPIService = DefaultNIPostFeedAPIService(networkService: networkService)
     
         let viewController = NIPostFeedViewController()
-        let router = DefaultNIPostFeedRouter(navigationController: navigationController)
+        let router = DefaultNIPostFeedRouter()
         let presenter = DefaultNIPostFeedPresenter(
             view: viewController,
             router: router,
@@ -28,7 +28,8 @@ final class DefaultNIPostFeedBuilder: NIPostFeedBuilder {
         )
         
         viewController.setPresenter(presenter)
+        router.inject(root: viewController)
         
-        return viewController
+        return UINavigationController(rootViewController: viewController)
     }
 }

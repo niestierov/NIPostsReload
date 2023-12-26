@@ -22,7 +22,7 @@ enum EndPoint {
     var urlString: String {
         switch self {
         case .list, .details:
-            return EndPointConstant.baseUrl + path
+            return EndPointConstant.baseUrl + path + EndPointConstant.jsonFormat
         }
     }
     
@@ -54,9 +54,9 @@ enum EndPoint {
     private var path: String {
         switch self {
         case .list:
-            return EndPointConstant.listPath + EndPointConstant.jsonFormat
+            return EndPointConstant.listPath
         case .details(let id):
-            return EndPointConstant.detailsPath + "/" + id.stringValue + EndPointConstant.jsonFormat
+            return EndPointConstant.detailsPath + "/" + id.stringValue
         }
     }
 }

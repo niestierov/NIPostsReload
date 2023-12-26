@@ -75,12 +75,12 @@ private extension NIPostFeedViewController {
         _ cell: NIPostFeedTableViewCell,
         at index: Int
     ) {
+        presenter.changePostIsExpandedState(at: index)
+        
         UIView.animate(withDuration: 0.2) {
             cell.layoutIfNeeded()
             self.tableView.performBatchUpdates(nil, completion: nil)
         }
-        
-        presenter.changePostIsExpandedState(at: index)
     }
 }
 
@@ -120,8 +120,8 @@ extension NIPostFeedViewController: UITableViewDataSource {
         
         let post = presenter.getPostItem(at: indexPath.item)
 
-        cell.setUpdateHandler { [unowned self] in
-            updateCell(cell, at: indexPath.item)
+        cell.setUpdateHandler { [weak self] in
+            self?.updateCell(cell, at: indexPath.item)
         }
         
         cell.configure(with: post)
@@ -137,6 +137,6 @@ extension NIPostFeedViewController: UITableViewDelegate {
         _ tableView: UITableView,
         didSelectRowAt indexPath: IndexPath
     ) {
-        presenter.didSelectCell(at: indexPath.row)
+        presenter.didSelectPost(at: indexPath.row)
     }
 }

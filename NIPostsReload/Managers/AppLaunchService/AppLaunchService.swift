@@ -7,27 +7,26 @@
 
 import UIKit
 
-final class AppStarter {
+final class AppLaunchService {
     
     // MARK: - Properties -
     
     private var window: UIWindow?
-
+    private let appConfiguration: AppConfiguration
+    
     // MARK: - Init -
     
-    init() {
-        registerServices()
+    init(appConfiguration: AppConfiguration) {
+        self.appConfiguration = appConfiguration
     }
 
     // MARK: - Internal -
     
     func start(in windowScene: UIWindowScene) {
-        let navigationController = UINavigationController()
-        let niPostFeedModule = DefaultNIPostFeedBuilder().createNiPostFeedModule(for: navigationController)
-
-        configureWindow(with: navigationController, in: windowScene)
+        appConfiguration.configure()
         
-        navigationController.setViewControllers([niPostFeedModule], animated: true)
+        let niPostFeedModule = DefaultNIPostFeedBuilder().createNiPostFeedModule()
+        configureWindow(with: niPostFeedModule, in: windowScene)
     }
 
     // MARK: - Private -
@@ -45,7 +44,7 @@ final class AppStarter {
     
     private func registerNetworkService() {
         let networkService: NetworkService = DefaultNetworkService()
-        DefaultServiceLocator.shared.register(service: networkService)
+        ServiceLocator.shared.register(service: networkService)
     }
     
     private func registerServices() {
