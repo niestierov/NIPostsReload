@@ -7,15 +7,6 @@
 
 import UIKit
 
-class BaseRouter {
-    
-    // MARK: - Properties -
-    
-    var root: UIViewController!
-    
-    // MARK: - Internal -
-    
-    func inject(root: UIViewController) {
-        self.root = root
-    }
+protocol BaseRouter {
+    var root: UIViewController { get set }
 }

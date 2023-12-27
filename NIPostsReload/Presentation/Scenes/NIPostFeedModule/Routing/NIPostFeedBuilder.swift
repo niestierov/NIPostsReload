@@ -20,7 +20,7 @@ final class DefaultNIPostFeedBuilder: NIPostFeedBuilder {
         let apiService: NIPostFeedAPIService = DefaultNIPostFeedAPIService(networkService: networkService)
     
         let viewController = NIPostFeedViewController()
-        let router = DefaultNIPostFeedRouter()
+        let router = DefaultNIPostFeedRouter(root: viewController)
         let presenter = DefaultNIPostFeedPresenter(
             view: viewController,
             router: router,
@@ -28,7 +28,6 @@ final class DefaultNIPostFeedBuilder: NIPostFeedBuilder {
         )
         
         viewController.setPresenter(presenter)
-        router.inject(root: viewController)
         
         return UINavigationController(rootViewController: viewController)
     }

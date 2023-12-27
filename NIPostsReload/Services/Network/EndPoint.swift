@@ -17,7 +17,7 @@ private struct EndPointConstant {
 
 enum EndPoint {
     case list
-    case details(id: Int)
+    case details(postId: Int)
     
     var urlString: String {
         switch self {
@@ -55,8 +55,8 @@ enum EndPoint {
         switch self {
         case .list:
             return EndPointConstant.listPath
-        case .details(let id):
-            return EndPointConstant.detailsPath + "/" + id.stringValue
+        case .details(let postId):
+            return EndPointConstant.detailsPath + "/" + postId.stringValue
         }
     }
 }

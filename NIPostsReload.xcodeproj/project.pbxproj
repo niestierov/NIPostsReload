@@ -20,8 +20,9 @@
 		9A290E062B1D27D8000ABB78 /* NIPostFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A290E052B1D27D8000ABB78 /* NIPostFeedPresenter.swift */; };
 		9A4593C22B207F9300B70EEC /* NIPostFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C12B207F9300B70EEC /* NIPostFeedTableViewCell.swift */; };
 		9A4593C52B207FF200B70EEC /* SelfIdentifiable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C42B207FF200B70EEC /* SelfIdentifiable+Extension.swift */; };
-		9A4593C72B20800200B70EEC /* UICollectionView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */; };
+		9A4593C72B20800200B70EEC /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */; };
 		9A4593C92B208A2500B70EEC /* NIPostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C82B208A2500B70EEC /* NIPostFeed.swift */; };
+		9A89B7962B3C53D200F4A8AC /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89B7952B3C53D200F4A8AC /* AppConstant.swift */; };
 		9A99B7552B3B201500B1CC48 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */; };
 		9A99B7572B3B21A800B1CC48 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */; };
 		9A99B75B2B3B23AA00B1CC48 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */; };
@@ -52,8 +53,9 @@
 		9A290E052B1D27D8000ABB78 /* NIPostFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedPresenter.swift; sourceTree = "<group>"; };
 		9A4593C12B207F9300B70EEC /* NIPostFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeedTableViewCell.swift; sourceTree = "<group>"; };
 		9A4593C42B207FF200B70EEC /* SelfIdentifiable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SelfIdentifiable+Extension.swift"; sourceTree = "<group>"; };
-		9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Reusable.swift"; sourceTree = "<group>"; };
+		9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		9A4593C82B208A2500B70EEC /* NIPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeed.swift; sourceTree = "<group>"; };
+		9A89B7952B3C53D200F4A8AC /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				9A290DEC2B1D2128000ABB78 /* Assets.xcassets */,
 				9A290DEE2B1D2128000ABB78 /* LaunchScreen.storyboard */,
+				9A89B7952B3C53D200F4A8AC /* AppConstant.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -202,7 +205,7 @@
 			children = (
 				9A0A8F162B2C68960073D2EE /* UIViewController+Alert.swift */,
 				9A4593C42B207FF200B70EEC /* SelfIdentifiable+Extension.swift */,
-				9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */,
+				9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */,
 				9A07DFCB2B20BB5E00C87512 /* StringConvertible+Extension.swift */,
 				9A07DFCD2B20BE1200C87512 /* Date+Extension.swift */,
 				9AEEF4112B29C94900E25081 /* UILabel+Extension.swift */,
@@ -376,7 +379,7 @@
 				9A99B7552B3B201500B1CC48 /* UIView+Extension.swift in Sources */,
 				9ABEE0A42B303E3E009ED963 /* ServiceLocator.swift in Sources */,
 				9A290E042B1D2790000ABB78 /* NIPostFeedViewController.swift in Sources */,
-				9A4593C72B20800200B70EEC /* UICollectionView+Reusable.swift in Sources */,
+				9A4593C72B20800200B70EEC /* UITableView+Reusable.swift in Sources */,
 				9AEEF4122B29C94900E25081 /* UILabel+Extension.swift in Sources */,
 				9A290DE42B1D2127000ABB78 /* AppDelegate.swift in Sources */,
 				9A0A8F172B2C68960073D2EE /* UIViewController+Alert.swift in Sources */,
@@ -389,6 +392,7 @@
 				9A4593C92B208A2500B70EEC /* NIPostFeed.swift in Sources */,
 				9A290E022B1D264B000ABB78 /* NIPostFeedBuilder.swift in Sources */,
 				9AEEF4142B29CED600E25081 /* JSONDecoder+Extension.swift in Sources */,
+				9A89B7962B3C53D200F4A8AC /* AppConstant.swift in Sources */,
 				9A99B7572B3B21A800B1CC48 /* AppConfiguration.swift in Sources */,
 				9A290E002B1D2641000ABB78 /* NIPostFeedRouter.swift in Sources */,
 				9A4593C22B207F9300B70EEC /* NIPostFeedTableViewCell.swift in Sources */,

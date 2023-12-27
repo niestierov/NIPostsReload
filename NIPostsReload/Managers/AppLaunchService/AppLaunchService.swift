@@ -41,13 +41,4 @@ final class AppLaunchService {
 
         self.window = window
     }
-    
-    private func registerNetworkService() {
-        let networkService: NetworkService = DefaultNetworkService()
-        ServiceLocator.shared.register(service: networkService)
-    }
-    
-    private func registerServices() {
-        registerNetworkService()
-    }
 }

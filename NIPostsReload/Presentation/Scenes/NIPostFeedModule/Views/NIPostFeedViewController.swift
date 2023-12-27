@@ -22,7 +22,7 @@ final class NIPostFeedViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(NIPostFeedTableViewCell.self)
@@ -75,7 +75,8 @@ private extension NIPostFeedViewController {
         _ cell: NIPostFeedTableViewCell,
         at index: Int
     ) {
-        presenter.changePostIsExpandedState(at: index)
+        let isExpanded = presenter.changePostIsExpandedState(at: index)
+        cell.updateContent(with: isExpanded)
         
         UIView.animate(withDuration: 0.2) {
             cell.layoutIfNeeded()
@@ -117,13 +118,11 @@ extension NIPostFeedViewController: UITableViewDataSource {
             cellType: NIPostFeedTableViewCell.self,
             at: indexPath
         )
-        
         let post = presenter.getPostItem(at: indexPath.item)
 
         cell.setUpdateHandler { [weak self] in
             self?.updateCell(cell, at: indexPath.item)
         }
-        
         cell.configure(with: post)
         
         return cell

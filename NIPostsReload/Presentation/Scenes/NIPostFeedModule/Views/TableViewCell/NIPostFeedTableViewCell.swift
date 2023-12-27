@@ -88,8 +88,7 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     
     // MARK: - Properties -
     
-    private var updateHandler: (() -> Void)?
-    private var isExpanded = false
+    private var updateHandler: EmptyBlock?
     
     // MARK: - Life Cycle -
     
@@ -113,12 +112,19 @@ final class NIPostFeedTableViewCell: UITableViewCell {
         postLikesLabel.text = post.likesCount.stringValue
         postDateLabel.text = post.date
         
-        self.isExpanded = post.isExpanded
-        updateContent()
+        updateContent(with: post.isExpanded)
+        updateExpandButtonVisibility()
     }
     
-    func setUpdateHandler(update: @escaping () -> Void) {
+    func setUpdateHandler(update: @escaping EmptyBlock) {
         updateHandler = update
+    }
+    
+    func updateContent(with isExpanded: Bool) {
+        let title = isExpanded ? Constant.collapseTitle : Constant.expandTitle
+        postExpandButton.setTitle(title, for: .normal)
+        
+        postDescriptionLabel.numberOfLines = isExpanded ? .zero : Constant.defaultDescriptionNumberOfLines
     }
 }
 
@@ -165,28 +171,11 @@ private extension NIPostFeedTableViewCell {
         layoutIfNeeded()
     }
     
-    func updateContent() {
-        postDescriptionLabel.numberOfLines = isExpanded ? .zero : Constant.defaultDescriptionNumberOfLines
-        
-        updateExpandButtonTitle()
-        updateExpandButtonVisibility()
-    }
-    
-    func updateExpandButtonTitle() {
-        let title = isExpanded ? Constant.collapseTitle : Constant.expandTitle
-        
-        postExpandButton.setTitle(title, for: .normal)
-    }
-    
     func updateExpandButtonVisibility() {
         postExpandButton.isHidden = postDescriptionLabel.fitsInLines()
     }
     
     @objc func tappedExpandButton() {
-        postDescriptionLabel.numberOfLines = postDescriptionLabel.numberOfLines == .zero ? Constant.defaultDescriptionNumberOfLines : .zero
-        isExpanded.toggle()
-        
-        updateExpandButtonTitle()
         updateHandler?()
     }
 }

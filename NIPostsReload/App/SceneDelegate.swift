@@ -12,8 +12,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: - Properties -
     
     var window: UIWindow?
-    private let appConfiguration: AppConfiguration = DefaultAppConfiguration()
-    private var appLaunchService: AppLaunchService?
+    private lazy var appConfiguration: AppConfiguration = DefaultAppConfiguration()
+    private lazy var appLaunchService = AppLaunchService(appConfiguration: appConfiguration)
 
     // MARK: - Internal -
     
@@ -24,7 +24,6 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        appLaunchService = AppLaunchService(appConfiguration: appConfiguration)
-        appLaunchService?.start(in: windowScene)
+        appLaunchService.start(in: windowScene)
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 struct AlertButtonAction {
     let title: String
     let style: UIAlertAction.Style
-    let completion: (() -> Void)?
+    let completion: EmptyBlock?
     
     static func `default`() -> AlertButtonAction {
         AlertButtonAction(

@@ -13,6 +13,10 @@ protocol AppConfiguration {
 
 final class DefaultAppConfiguration: AppConfiguration {
     func configure() {
+        registerServices()
+    }
+    
+    private func registerServices() {
         registerNetworkService()
     }
 
