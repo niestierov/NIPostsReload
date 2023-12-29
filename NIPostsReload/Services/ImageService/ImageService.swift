@@ -51,6 +51,11 @@ final class ImageService {
             return
         }
         
-        setImage(with: url, for: imageView, placeholder: placeholder, completion: completion)
+        setImage(
+            with: url,
+            for: imageView,
+            placeholder: placeholder,
+            completion: completion
+        )
     }
 }
