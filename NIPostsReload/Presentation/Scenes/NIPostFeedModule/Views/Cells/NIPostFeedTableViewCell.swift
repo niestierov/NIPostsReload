@@ -106,18 +106,18 @@ final class NIPostFeedTableViewCell: UITableViewCell {
 
     // MARK: - Internal -
     
-    func configure(with post: NIPostViewState.Post) {
+    func configure(
+        with post: NIPostViewState.Post,
+        update: @escaping EmptyBlock
+    ) {
         postTitleLabel.text = post.title
         postDescriptionLabel.text = post.previewText
         postLikesLabel.text = post.likesCount.stringValue
         postDateLabel.text = post.date
+        updateHandler = update
         
         updateContent(with: post.isExpanded)
         updateExpandButtonVisibility()
-    }
-    
-    func setUpdateHandler(update: @escaping EmptyBlock) {
-        updateHandler = update
     }
     
     func updateContent(with isExpanded: Bool) {

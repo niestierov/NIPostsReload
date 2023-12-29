@@ -120,10 +120,9 @@ extension NIPostFeedViewController: UITableViewDataSource {
         )
         let post = presenter.getPostItem(at: indexPath.item)
 
-        cell.setUpdateHandler { [weak self] in
+        cell.configure(with: post) { [weak self] in
             self?.updateCell(cell, at: indexPath.item)
         }
-        cell.configure(with: post)
         
         return cell
     }

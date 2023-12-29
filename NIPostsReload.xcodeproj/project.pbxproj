@@ -162,7 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				9A290E032B1D2790000ABB78 /* NIPostFeedViewController.swift */,
-				9A4593C02B207F6A00B70EEC /* TableViewCell */,
+				9A4593C02B207F6A00B70EEC /* Cells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,12 +192,12 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		9A4593C02B207F6A00B70EEC /* TableViewCell */ = {
+		9A4593C02B207F6A00B70EEC /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				9A4593C12B207F9300B70EEC /* NIPostFeedTableViewCell.swift */,
 			);
-			path = TableViewCell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		9A4593C32B207FC900B70EEC /* Extensions */ = {
