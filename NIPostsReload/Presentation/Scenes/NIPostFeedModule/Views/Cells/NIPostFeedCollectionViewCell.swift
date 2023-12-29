@@ -1,5 +1,5 @@
 //
-//  NIPostFeedTableViewCell.swift
+//  NIPostFeedCollectionViewCell.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 06.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class NIPostFeedTableViewCell: UITableViewCell {
+final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     private struct Constant {
         static let defaultHorizontalInset: CGFloat = 20
         static let defaultVerticalInset: CGFloat = 20
@@ -91,9 +91,9 @@ final class NIPostFeedTableViewCell: UITableViewCell {
     private var updateHandler: EmptyBlock?
     
     // MARK: - Life Cycle -
-    
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         setupView()
     }
@@ -130,7 +130,7 @@ final class NIPostFeedTableViewCell: UITableViewCell {
 
 // MARK: - Private -
 
-private extension NIPostFeedTableViewCell {
+private extension NIPostFeedCollectionViewCell {
     func setupView() {
         contentView.backgroundColor = .white
         

@@ -1,5 +1,5 @@
 //
-//  UITableView+Reusable.swift
+//  UICollectionView+Reusable.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 06.12.2023.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-extension UITableViewCell: SelfIdentifiable { }
+extension UICollectionViewCell: SelfIdentifiable { }
 
-extension UITableView {
-    func register(_ cellType: UITableViewCell.Type) {
-        register(cellType.self, forCellReuseIdentifier: cellType.identifier)
+extension UICollectionView {
+    func register(_ cellType: UICollectionViewCell.Type) {
+        register(cellType.self, forCellWithReuseIdentifier: cellType.identifier)
     }
 
-    func dequeue<T: UITableViewCell>(cellType: T.Type, at indexPath: IndexPath) -> T {
-        dequeueReusableCell(withIdentifier: cellType.identifier, for: indexPath) as! T
+    func dequeue<T: UICollectionViewCell>(cellType: T.Type, at indexPath: IndexPath) -> T {
+        dequeueReusableCell(withReuseIdentifier: cellType.identifier, for: indexPath) as! T
     }
 }

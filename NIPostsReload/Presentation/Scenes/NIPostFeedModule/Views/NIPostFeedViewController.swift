@@ -20,14 +20,17 @@ final class NIPostFeedViewController: UIViewController {
     
     // MARK: - UI Components -
     
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView(frame: CGRect.zero)
-        tableView.backgroundColor = .clear
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(NIPostFeedTableViewCell.self)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(
+            frame: CGRect.zero,
+            collectionViewLayout: makeCompositionalLayout()
+        )
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(NIPostFeedCollectionViewCell.self)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
 
     // MARK: - Life Cycle -
@@ -61,18 +64,18 @@ private extension NIPostFeedViewController {
     }
     
     func setupCollectionView() {
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 
     func updateCell(
-        _ cell: NIPostFeedTableViewCell,
+        _ cell: NIPostFeedCollectionViewCell,
         at index: Int
     ) {
         let isExpanded = presenter.changePostIsExpandedState(at: index)
@@ -80,7 +83,7 @@ private extension NIPostFeedViewController {
         
         UIView.animate(withDuration: 0.2) {
             cell.layoutIfNeeded()
-            self.tableView.performBatchUpdates(nil, completion: nil)
+            self.collectionView.performBatchUpdates(nil, completion: nil)
         }
     }
 }
@@ -89,7 +92,7 @@ private extension NIPostFeedViewController {
 
 extension NIPostFeedViewController: NIPostFeedView {
     func update() {
-        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func showError(message: String) {
@@ -102,20 +105,20 @@ extension NIPostFeedViewController: NIPostFeedView {
 
 // MARK: - UICollectionViewDataSource -
 
-extension NIPostFeedViewController: UITableViewDataSource {
-    func tableView(
-        _ tableView: UITableView,
-        numberOfRowsInSection section: Int
+extension NIPostFeedViewController: UICollectionViewDataSource {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
     ) -> Int {
         presenter.getPostFeedCount()
     }
     
-    func tableView(
-        _ tableView: UITableView,
-        cellForRowAt indexPath: IndexPath
-    ) -> UITableViewCell {
-        let cell = tableView.dequeue(
-            cellType: NIPostFeedTableViewCell.self,
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeue(
+            cellType: NIPostFeedCollectionViewCell.self,
             at: indexPath
         )
         let post = presenter.getPostItem(at: indexPath.item)
@@ -126,15 +129,36 @@ extension NIPostFeedViewController: UITableViewDataSource {
         
         return cell
     }
+    
+    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout -
 
-extension NIPostFeedViewController: UITableViewDelegate {
-    func tableView(
-        _ tableView: UITableView,
-        didSelectRowAt indexPath: IndexPath
+extension NIPostFeedViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
     ) {
         presenter.didSelectPost(at: indexPath.row)
+    }
+}
+
+// MARK: - UICollectionViewCompositionalLayout -
+
+extension NIPostFeedViewController {
+    func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
+        let layout = UICollectionViewCompositionalLayout { [weak self] section, environment in
+            guard let self else {
+                return nil
+            }
+            
+            let item = createCollectionViewItem()
+            let group = createCollectionViewVerticalGroup(with: [item])
+            let section = createCollectionViewSection(with: group)
+            return section
+        }
+
+        return layout
     }
 }
