@@ -42,16 +42,17 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         updatePosts()
     }
     
-    func getPostFeedCount() -> Int {
-        postViewState.posts.count
-    }
-    
     func getPostItem(at index: Int) -> NIPostViewState.Post {
         postViewState.posts[index]
     }
     
-    func didSelectPost(at: Int) {
-        router.showNiPostDetailsModule()
+    func getPostFeedCount() -> Int {
+        postViewState.posts.count
+    }
+    
+    func didSelectPost(at index: Int) {
+        let postId = postViewState.posts[index].postId
+        router.showNiPostDetailsModule(postId: postId)
     }
     
     @discardableResult
