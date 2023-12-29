@@ -11,7 +11,7 @@ extension UIImageView {
     func setImage(
         with url: URL,
         placeholder: UIImage? = nil,
-        completion: (() -> Void)? = nil
+        completion: EmptyBlock? = nil
     ) {
         ImageService.shared.setImage(
             with: url,
@@ -24,7 +24,7 @@ extension UIImageView {
     func setImage(
         with urlString: String,
         placeholder: UIImage? = nil,
-        completion: (() -> Void)? = nil
+        completion: EmptyBlock? = nil
     ) {
         ImageService.shared.setImage(
             string: urlString,

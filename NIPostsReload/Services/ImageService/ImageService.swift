@@ -24,10 +24,14 @@ final class ImageService {
         with url: URL,
         for imageView: UIImageView,
         placeholder: UIImage?,
-        completion: (() -> Void)? = nil
+        completion: EmptyBlock? = nil
     ) {
+        imageView.showActivityIndicator()
+        
         imageView.kf.setImage(with: url) { result in
             DispatchQueue.main.async {
+                imageView.hideActivityIndicator()
+                
                 switch result {
                 case .success(let value):
                     imageView.image = value.image
@@ -43,7 +47,7 @@ final class ImageService {
         string: String,
         for imageView: UIImageView,
         placeholder: UIImage? = nil,
-        completion: (() -> Void)? = nil
+        completion: EmptyBlock? = nil
     ) {
         guard let url = URL(string: string) else {
             imageView.image = placeholder

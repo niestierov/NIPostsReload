@@ -52,7 +52,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     
     func didSelectPost(at index: Int) {
         let postId = postViewState.posts[index].postId
-        router.showNiPostDetailsModule(postId: postId)
+        router.showPostDetails(postId: postId)
     }
     
     @discardableResult

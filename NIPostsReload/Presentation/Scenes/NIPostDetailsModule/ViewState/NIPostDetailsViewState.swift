@@ -14,9 +14,31 @@ struct NIPostDetailsViewState {
         let date: String
         let likesCount: Int
         let postImage: String
+        
+        init(
+            title: String = "",
+            text: String = "",
+            date: String = "",
+            likesCount: Int = .zero,
+            postImage: String = ""
+        ) {
+            self.title = title
+            self.text = text
+            self.date = date
+            self.likesCount = likesCount
+            self.postImage = postImage
+        }
     }
     
-    var post: NIPostDetailsViewState.Post
+    // MARK: - Init -
+    
+    init(post: Post = Post()) {
+        self.post = post
+    }
+    
+    // MARK: - Properties -
+    
+    var post: Post
 }
 
 extension NIPostDetailsViewState {

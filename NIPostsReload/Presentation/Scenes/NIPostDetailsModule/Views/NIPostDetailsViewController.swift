@@ -114,14 +114,13 @@ final class NIPostDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        setupViewComponents()
         presenter.initialSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.isNavigationBarHidden = false
+        setupNavigationBar()
     }
     
     // MARK: - Internal -
@@ -154,11 +153,13 @@ extension NIPostDetailsViewController: NIPostDetailsView {
 // MARK: - Private -
 
 private extension NIPostDetailsViewController {
-    func setupView() {
-        view.backgroundColor = .white
+    func setupNavigationBar() {
+        navigationController?.isNavigationBarHidden = false
     }
     
-    func setupViewComponents() {
+    func setupView() {
+        view.backgroundColor = .white
+        
         view.addSubview(scrollView)
         
         scrollView.addSubview(postImageView)

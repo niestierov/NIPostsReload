@@ -18,7 +18,7 @@ final class DefaultNIPostDetailsPresenter: NIPostDetailsPresenter {
     
     private unowned let view: NIPostDetailsView
     private let apiService: NIPostDetailsAPIService
-    private var postViewState: NIPostDetailsViewState?
+    private var postViewState = NIPostDetailsViewState()
     private let postId: Int
     
     // MARK: - Init -
@@ -63,6 +63,6 @@ private extension DefaultNIPostDetailsPresenter {
     
     func composePostViewStates(for post: NIPostDetail) {
         postViewState = NIPostDetailsViewState.makeViewState(for: post)
-        view.update(with: postViewState!.post)
+        view.update(with: postViewState.post)
     }
 }

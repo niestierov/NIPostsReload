@@ -38,9 +38,7 @@ final class DefaultNIPostDetailsAPIService: NIPostDetailsAPIService {
         ) { response in
             switch response {
             case .success(let data):
-                let posts = data?.post
-                completion(.success(posts))
-                
+                completion(.success(data?.post))
             case .failure(let error):
                 completion(.failure(error))
             }
