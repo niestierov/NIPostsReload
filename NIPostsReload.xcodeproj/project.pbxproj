@@ -23,6 +23,7 @@
 		9A4593C72B20800200B70EEC /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */; };
 		9A4593C92B208A2500B70EEC /* NIPostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C82B208A2500B70EEC /* NIPostFeed.swift */; };
 		9A89B7962B3C53D200F4A8AC /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89B7952B3C53D200F4A8AC /* AppConstant.swift */; };
+		9A8CDEBE2B3F0E1300330A1B /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */; };
 		9A99B7552B3B201500B1CC48 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */; };
 		9A99B7572B3B21A800B1CC48 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */; };
 		9A99B75B2B3B23AA00B1CC48 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */; };
@@ -56,6 +57,7 @@
 		9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		9A4593C82B208A2500B70EEC /* NIPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeed.swift; sourceTree = "<group>"; };
 		9A89B7952B3C53D200F4A8AC /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
+		9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				9AAE490E2B28A87A00E5EB77 /* Network */,
+				9A8CDEBC2B3F0E1300330A1B /* ImageService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -213,6 +216,14 @@
 				9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9A8CDEBC2B3F0E1300330A1B /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */,
+			);
+			path = ImageService;
 			sourceTree = "<group>";
 		};
 		9A99B7582B3B21B600B1CC48 /* AppConfiguration */ = {
@@ -397,6 +408,7 @@
 				9A290E002B1D2641000ABB78 /* NIPostFeedRouter.swift in Sources */,
 				9A4593C22B207F9300B70EEC /* NIPostFeedTableViewCell.swift in Sources */,
 				9ABEE0A72B30432B009ED963 /* AppLaunchService.swift in Sources */,
+				9A8CDEBE2B3F0E1300330A1B /* ImageService.swift in Sources */,
 				9AAE49102B28A9AC00E5EB77 /* NetworkService.swift in Sources */,
 				9AAE49122B28A9BF00E5EB77 /* EndPoint.swift in Sources */,
 				9AB383A32B33381400D690EA /* NIPostViewState.swift in Sources */,
