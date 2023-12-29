@@ -23,6 +23,16 @@
 		9A4593C72B20800200B70EEC /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */; };
 		9A4593C92B208A2500B70EEC /* NIPostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4593C82B208A2500B70EEC /* NIPostFeed.swift */; };
 		9A89B7962B3C53D200F4A8AC /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89B7952B3C53D200F4A8AC /* AppConstant.swift */; };
+		9A8CDEBE2B3F0E1300330A1B /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */; };
+		9A8CDEC12B3F0E6000330A1B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9A8CDEC02B3F0E6000330A1B /* Kingfisher */; };
+		9A8CDEC32B3F0EA400330A1B /* UIImageView+ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEC22B3F0EA400330A1B /* UIImageView+ImageService.swift */; };
+		9A8CDED12B3F0EE100330A1B /* NIPostDetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEC62B3F0EE100330A1B /* NIPostDetailsPresenter.swift */; };
+		9A8CDED22B3F0EE100330A1B /* NIPostDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEC82B3F0EE100330A1B /* NIPostDetails.swift */; };
+		9A8CDED32B3F0EE100330A1B /* NIPostDetailsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDECA2B3F0EE100330A1B /* NIPostDetailsBuilder.swift */; };
+		9A8CDED42B3F0EE100330A1B /* NIPostDetailsViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDECC2B3F0EE100330A1B /* NIPostDetailsViewState.swift */; };
+		9A8CDED52B3F0EE100330A1B /* NIPostDetailsAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDECE2B3F0EE100330A1B /* NIPostDetailsAPIService.swift */; };
+		9A8CDED62B3F0EE100330A1B /* NIPostDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDED02B3F0EE100330A1B /* NIPostDetailsViewController.swift */; };
+		9A8CDEDC2B3F223F00330A1B /* UIView+ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEDB2B3F223F00330A1B /* UIView+ActivityIndicator.swift */; };
 		9A99B7552B3B201500B1CC48 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */; };
 		9A99B7572B3B21A800B1CC48 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */; };
 		9A99B75B2B3B23AA00B1CC48 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */; };
@@ -56,6 +66,15 @@
 		9A4593C62B20800200B70EEC /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
 		9A4593C82B208A2500B70EEC /* NIPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeed.swift; sourceTree = "<group>"; };
 		9A89B7952B3C53D200F4A8AC /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
+		9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		9A8CDEC22B3F0EA400330A1B /* UIImageView+ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageService.swift"; sourceTree = "<group>"; };
+		9A8CDEC62B3F0EE100330A1B /* NIPostDetailsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NIPostDetailsPresenter.swift; sourceTree = "<group>"; };
+		9A8CDEC82B3F0EE100330A1B /* NIPostDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NIPostDetails.swift; sourceTree = "<group>"; };
+		9A8CDECA2B3F0EE100330A1B /* NIPostDetailsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NIPostDetailsBuilder.swift; sourceTree = "<group>"; };
+		9A8CDECC2B3F0EE100330A1B /* NIPostDetailsViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NIPostDetailsViewState.swift; sourceTree = "<group>"; };
+		9A8CDECE2B3F0EE100330A1B /* NIPostDetailsAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NIPostDetailsAPIService.swift; sourceTree = "<group>"; };
+		9A8CDED02B3F0EE100330A1B /* NIPostDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NIPostDetailsViewController.swift; sourceTree = "<group>"; };
+		9A8CDEDB2B3F223F00330A1B /* UIView+ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ActivityIndicator.swift"; sourceTree = "<group>"; };
 		9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
@@ -74,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A8CDEC12B3F0E6000330A1B /* Kingfisher in Frameworks */,
 				9AAE49152B28AAD900E5EB77 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,6 +142,7 @@
 		9A290DF82B1D2526000ABB78 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9A8CDEC42B3F0EE100330A1B /* NIPostDetailsModule */,
 				9A290DFA2B1D253D000ABB78 /* NIPostFeedModule */,
 			);
 			path = Scenes;
@@ -188,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				9AAE490E2B28A87A00E5EB77 /* Network */,
+				9A8CDEBC2B3F0E1300330A1B /* ImageService */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -211,8 +233,79 @@
 				9AEEF4112B29C94900E25081 /* UILabel+Extension.swift */,
 				9AEEF4132B29CED600E25081 /* JSONDecoder+Extension.swift */,
 				9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */,
+				9A8CDEC22B3F0EA400330A1B /* UIImageView+ImageService.swift */,
+				9A8CDEDB2B3F223F00330A1B /* UIView+ActivityIndicator.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9A8CDEBC2B3F0E1300330A1B /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */,
+			);
+			path = ImageService;
+			sourceTree = "<group>";
+		};
+		9A8CDEC42B3F0EE100330A1B /* NIPostDetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDECD2B3F0EE100330A1B /* APIService */,
+				9A8CDEC72B3F0EE100330A1B /* Model */,
+				9A8CDECB2B3F0EE100330A1B /* ViewState */,
+				9A8CDECF2B3F0EE100330A1B /* Views */,
+				9A8CDEC52B3F0EE100330A1B /* Presenter */,
+				9A8CDEC92B3F0EE100330A1B /* Routing */,
+			);
+			path = NIPostDetailsModule;
+			sourceTree = "<group>";
+		};
+		9A8CDEC52B3F0EE100330A1B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDEC62B3F0EE100330A1B /* NIPostDetailsPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		9A8CDEC72B3F0EE100330A1B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDEC82B3F0EE100330A1B /* NIPostDetails.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9A8CDEC92B3F0EE100330A1B /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDECA2B3F0EE100330A1B /* NIPostDetailsBuilder.swift */,
+			);
+			path = Routing;
+			sourceTree = "<group>";
+		};
+		9A8CDECB2B3F0EE100330A1B /* ViewState */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDECC2B3F0EE100330A1B /* NIPostDetailsViewState.swift */,
+			);
+			path = ViewState;
+			sourceTree = "<group>";
+		};
+		9A8CDECD2B3F0EE100330A1B /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDECE2B3F0EE100330A1B /* NIPostDetailsAPIService.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		9A8CDECF2B3F0EE100330A1B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9A8CDED02B3F0EE100330A1B /* NIPostDetailsViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9A99B7582B3B21B600B1CC48 /* AppConfiguration */ = {
@@ -318,6 +411,7 @@
 			name = NIPostsReload;
 			packageProductDependencies = (
 				9AAE49142B28AAD900E5EB77 /* Alamofire */,
+				9A8CDEC02B3F0E6000330A1B /* Kingfisher */,
 			);
 			productName = NIPostsReload;
 			productReference = 9A290DE02B1D2127000ABB78 /* NIPostsReload.app */;
@@ -349,6 +443,7 @@
 			mainGroup = 9A290DD72B1D2127000ABB78;
 			packageReferences = (
 				9AAE49132B28AAD900E5EB77 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				9A8CDEBF2B3F0E6000330A1B /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 9A290DE12B1D2127000ABB78 /* Products */;
 			projectDirPath = "";
@@ -380,12 +475,17 @@
 				9ABEE0A42B303E3E009ED963 /* ServiceLocator.swift in Sources */,
 				9A290E042B1D2790000ABB78 /* NIPostFeedViewController.swift in Sources */,
 				9A4593C72B20800200B70EEC /* UITableView+Reusable.swift in Sources */,
+				9A8CDEC32B3F0EA400330A1B /* UIImageView+ImageService.swift in Sources */,
 				9AEEF4122B29C94900E25081 /* UILabel+Extension.swift in Sources */,
+				9A8CDED52B3F0EE100330A1B /* NIPostDetailsAPIService.swift in Sources */,
+				9A8CDED62B3F0EE100330A1B /* NIPostDetailsViewController.swift in Sources */,
 				9A290DE42B1D2127000ABB78 /* AppDelegate.swift in Sources */,
 				9A0A8F172B2C68960073D2EE /* UIViewController+Alert.swift in Sources */,
+				9A8CDED42B3F0EE100330A1B /* NIPostDetailsViewState.swift in Sources */,
 				9A99B75B2B3B23AA00B1CC48 /* BaseRouter.swift in Sources */,
 				9A290DE62B1D2127000ABB78 /* SceneDelegate.swift in Sources */,
 				9A290E062B1D27D8000ABB78 /* NIPostFeedPresenter.swift in Sources */,
+				9A8CDED22B3F0EE100330A1B /* NIPostDetails.swift in Sources */,
 				9A07DFCC2B20BB5E00C87512 /* StringConvertible+Extension.swift in Sources */,
 				9AB3839D2B32F8A100D690EA /* NIPostFeedAPIService.swift in Sources */,
 				9A4593C52B207FF200B70EEC /* SelfIdentifiable+Extension.swift in Sources */,
@@ -393,10 +493,14 @@
 				9A290E022B1D264B000ABB78 /* NIPostFeedBuilder.swift in Sources */,
 				9AEEF4142B29CED600E25081 /* JSONDecoder+Extension.swift in Sources */,
 				9A89B7962B3C53D200F4A8AC /* AppConstant.swift in Sources */,
+				9A8CDED12B3F0EE100330A1B /* NIPostDetailsPresenter.swift in Sources */,
+				9A8CDEDC2B3F223F00330A1B /* UIView+ActivityIndicator.swift in Sources */,
 				9A99B7572B3B21A800B1CC48 /* AppConfiguration.swift in Sources */,
 				9A290E002B1D2641000ABB78 /* NIPostFeedRouter.swift in Sources */,
 				9A4593C22B207F9300B70EEC /* NIPostFeedTableViewCell.swift in Sources */,
 				9ABEE0A72B30432B009ED963 /* AppLaunchService.swift in Sources */,
+				9A8CDEBE2B3F0E1300330A1B /* ImageService.swift in Sources */,
+				9A8CDED32B3F0EE100330A1B /* NIPostDetailsBuilder.swift in Sources */,
 				9AAE49102B28A9AC00E5EB77 /* NetworkService.swift in Sources */,
 				9AAE49122B28A9BF00E5EB77 /* EndPoint.swift in Sources */,
 				9AB383A32B33381400D690EA /* NIPostViewState.swift in Sources */,
@@ -614,6 +718,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		9A8CDEBF2B3F0E6000330A1B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.1;
+			};
+		};
 		9AAE49132B28AAD900E5EB77 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -625,6 +737,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9A8CDEC02B3F0E6000330A1B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9A8CDEBF2B3F0E6000330A1B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		9AAE49142B28AAD900E5EB77 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9AAE49132B28AAD900E5EB77 /* XCRemoteSwiftPackageReference "Alamofire" */;

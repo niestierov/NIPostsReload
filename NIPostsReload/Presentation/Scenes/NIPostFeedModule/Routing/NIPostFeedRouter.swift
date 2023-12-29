@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NIPostFeedRouter {
-    func showNiPostDetailsModule()
+    func showPostDetails(postId: Int)
 }
 
 final class DefaultNIPostFeedRouter: BaseRouter, NIPostFeedRouter {
@@ -25,5 +25,8 @@ final class DefaultNIPostFeedRouter: BaseRouter, NIPostFeedRouter {
     
     // MARK: - Internal -
     
-    func showNiPostDetailsModule() { }
+    func showPostDetails(postId: Int) {
+        let postDetails = DefaultNIPostDetailsBuilder().createNiPostDetailsModule(postId: postId)
+        root.navigationController?.pushViewController(postDetails, animated: true)
+    }
 }
