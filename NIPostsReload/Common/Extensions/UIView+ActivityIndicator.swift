@@ -12,14 +12,11 @@ extension UIView {
         return 999
     }
 
-    func showActivityIndicator(
-        style: UIActivityIndicatorView.Style = .medium,
-        position: CGPoint? = nil
-    ) {
+    func showActivityIndicator(style: UIActivityIndicatorView.Style = .medium) {
         if viewWithTag(activityIndicatorTag) == nil {
             let activityIndicator = UIActivityIndicatorView(style: style)
             activityIndicator.tag = activityIndicatorTag
-            activityIndicator.center = position ?? center
+            activityIndicator.center = center
             activityIndicator.startAnimating()
             addSubview(activityIndicator)
         }

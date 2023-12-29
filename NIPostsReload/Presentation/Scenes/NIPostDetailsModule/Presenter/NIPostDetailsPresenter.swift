@@ -63,6 +63,9 @@ private extension DefaultNIPostDetailsPresenter {
     
     func composePostViewStates(for post: NIPostDetail) {
         postViewState = NIPostDetailsViewState.makeViewState(for: post)
-        view.update(with: postViewState.post)
+        
+        if let post = postViewState.post {
+            view.update(with: post)
+        }
     }
 }

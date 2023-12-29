@@ -113,14 +113,9 @@ final class NIPostDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
         setupView()
         presenter.initialSetup()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        setupNavigationBar()
     }
     
     // MARK: - Internal -
