@@ -25,6 +25,7 @@
 		9A89B7962B3C53D200F4A8AC /* AppConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A89B7952B3C53D200F4A8AC /* AppConstant.swift */; };
 		9A8CDEBE2B3F0E1300330A1B /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */; };
 		9A8CDEC12B3F0E6000330A1B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9A8CDEC02B3F0E6000330A1B /* Kingfisher */; };
+		9A8CDEC32B3F0EA400330A1B /* UIImageView+ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A8CDEC22B3F0EA400330A1B /* UIImageView+ImageService.swift */; };
 		9A99B7552B3B201500B1CC48 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */; };
 		9A99B7572B3B21A800B1CC48 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */; };
 		9A99B75B2B3B23AA00B1CC48 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */; };
@@ -59,6 +60,7 @@
 		9A4593C82B208A2500B70EEC /* NIPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIPostFeed.swift; sourceTree = "<group>"; };
 		9A89B7952B3C53D200F4A8AC /* AppConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstant.swift; sourceTree = "<group>"; };
 		9A8CDEBD2B3F0E1300330A1B /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		9A8CDEC22B3F0EA400330A1B /* UIImageView+ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ImageService.swift"; sourceTree = "<group>"; };
 		9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		9A99B7562B3B21A800B1CC48 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		9A99B75A2B3B23AA00B1CC48 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				9AEEF4112B29C94900E25081 /* UILabel+Extension.swift */,
 				9AEEF4132B29CED600E25081 /* JSONDecoder+Extension.swift */,
 				9A99B7542B3B201500B1CC48 /* UIView+Extension.swift */,
+				9A8CDEC22B3F0EA400330A1B /* UIImageView+ImageService.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 				9ABEE0A42B303E3E009ED963 /* ServiceLocator.swift in Sources */,
 				9A290E042B1D2790000ABB78 /* NIPostFeedViewController.swift in Sources */,
 				9A4593C72B20800200B70EEC /* UITableView+Reusable.swift in Sources */,
+				9A8CDEC32B3F0EA400330A1B /* UIImageView+ImageService.swift in Sources */,
 				9AEEF4122B29C94900E25081 /* UILabel+Extension.swift in Sources */,
 				9A290DE42B1D2127000ABB78 /* AppDelegate.swift in Sources */,
 				9A0A8F172B2C68960073D2EE /* UIViewController+Alert.swift in Sources */,
