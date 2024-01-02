@@ -10,7 +10,6 @@ import UIKit
 final class CustomTabViewCell: UICollectionViewCell {
     private struct Constant {
         static let titleFontSize: CGFloat = 18
-        static let titleNumberOfLines = 1
         static let defaultHorizontalInset: CGFloat = 12
     }
     
@@ -23,7 +22,6 @@ final class CustomTabViewCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.numberOfLines = Constant.titleNumberOfLines
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: Constant.titleFontSize, weight: .medium)
         label.translatesAutoresizingMaskIntoConstraints = false

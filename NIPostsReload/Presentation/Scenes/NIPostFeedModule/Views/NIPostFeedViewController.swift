@@ -14,7 +14,7 @@ protocol NIPostFeedView: AnyObject {
 
 final class NIPostFeedViewController: UIViewController {
     private struct Constant {
-        static var tabList: [String] = PostFeedType.allCases.map { $0.title }
+        static let tabList: [String] = PostFeedType.allCases.map { $0.title }
         static let defaultInset: CGFloat = 10
         static let defaultItemInset: CGFloat = 5
         static let gridItemHeight: CGFloat = 300
