@@ -15,11 +15,11 @@ enum PostFeedType: CaseIterable {
     var title: String {
         switch self {
         case .list:
-            "List"
+            return "List"
         case .grid:
-            "Grid"
+            return "Grid"
         case .gallery:
-            "Gallery"
+            return "Gallery"
         }
     }
 }

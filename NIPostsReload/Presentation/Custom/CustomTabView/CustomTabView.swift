@@ -186,8 +186,7 @@ private extension CustomTabView {
     }
     
     func updateIndicatorPositionWithAnimation(for frame: CGRect) {
-        UIView.animate(withDuration: Constant.selectionIndicatorAnimationTime)
-        {
+        UIView.animate(withDuration: Constant.selectionIndicatorAnimationTime) {
             self.selectionIndicatorView.frame = frame
         }
     }

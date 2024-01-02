@@ -10,6 +10,7 @@ import UIKit
 protocol NIPostFeedView: AnyObject { 
     func update()
     func showError(message: String)
+    func updateCollectionViewLayout()
 }
 
 final class NIPostFeedViewController: UIViewController {
@@ -41,7 +42,7 @@ final class NIPostFeedViewController: UIViewController {
     private lazy var tabView: CustomTabView = {
         let view = CustomTabView(tabs: Constant.tabList)
         view.didSelectTabAt = { [weak self] index in
-            self?.updateCollectionViewFeedType(for: index)
+            self?.presenter.didSelectFeedType(with: index)
         }
         view.configure(
             backgroundColor: .white,
@@ -100,27 +101,7 @@ private extension NIPostFeedViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-    
-    func updateCollectionViewFeedType(for index: Int) {
-        presenter.didSelectFeedType(with: index)
-        updateCollectionView()
-    }
 
-    func updateCollectionView() {
-        updateCollectionViewLayout()
-        collectionView.scrollToItem(
-            at: [.zero, .zero],
-            at: .top,
-            animated: false
-        )
-    }
-    
-    func updateCollectionViewLayout() {
-        collectionView.collectionViewLayout.invalidateLayout()
-        collectionView.layoutIfNeeded()
-        collectionView.reloadData()
-    }
-    
     func updateCell(
         _ cell: NIPostFeedCollectionViewCell,
         at index: Int
@@ -150,6 +131,17 @@ extension NIPostFeedViewController: NIPostFeedView {
             message: message
         )
     }
+    
+    func updateCollectionViewLayout() {
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.layoutIfNeeded()
+        collectionView.reloadData()
+        collectionView.scrollToItem(
+            at: [.zero, .zero],
+            at: .top,
+            animated: false
+        )
+    }
 }
 
 // MARK: - UICollectionViewDataSource -
@@ -175,7 +167,7 @@ extension NIPostFeedViewController: UICollectionViewDataSource {
         
         cell.configure(
             with: post,
-            type:type
+            type: type
         ) { [weak self] in
             self?.updateCell(cell, at: indexPath.item)
         }

@@ -66,8 +66,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     }
     
     func didSelectFeedType(with index: Int) {
-        guard index >= .zero,
-              index < PostFeedType.allCases.count else {
+        guard index < PostFeedType.allCases.count else {
             view.showError(message: AlertConstant.defaultAlertErrorMessage)
             return
         }
@@ -79,6 +78,8 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         }
         self.selectedFeedType = selectedType
         setAllPostsIsExpandedState(to: false)
+        
+        view.updateCollectionViewLayout()
     }
 }
 
