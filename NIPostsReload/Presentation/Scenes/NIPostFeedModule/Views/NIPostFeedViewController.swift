@@ -102,7 +102,7 @@ private extension NIPostFeedViewController {
     }
     
     func updateCollectionViewFeedType(for index: Int) {
-        presenter.didSelectFeedType(with: Constant.tabList[index])
+        presenter.didSelectFeedType(with: index)
         updateCollectionView()
     }
 
@@ -184,9 +184,9 @@ extension NIPostFeedViewController: UICollectionViewDataSource {
     }
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout -
+// MARK: - UICollectionViewDelegate -
 
-extension NIPostFeedViewController: UICollectionViewDelegateFlowLayout {
+extension NIPostFeedViewController: UICollectionViewDelegate {
     func collectionView(
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath

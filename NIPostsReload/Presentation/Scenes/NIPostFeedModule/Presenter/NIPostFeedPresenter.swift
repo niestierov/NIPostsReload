@@ -14,8 +14,8 @@ protocol NIPostFeedPresenter: AnyObject {
     func getPostFeedCount() -> Int
     func getPostItem(at index: Int) -> NIPostViewState.Post
     func didSelectPost(at index: Int)
-    func changePostIsExpandedState(at index: Int) -> Bool
-    func didSelectFeedType(with typeTitle: String)
+    @discardableResult func changePostIsExpandedState(at index: Int) -> Bool
+    func didSelectFeedType(with index: Int)
 }
 
 final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
@@ -59,28 +59,25 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         router.showPostDetails(postId: postId)
     }
     
+    @discardableResult
     func changePostIsExpandedState(at index: Int) -> Bool {
         postViewState.posts[index].isExpanded.toggle()
         return postViewState.posts[index].isExpanded
     }
     
-    func getSelectedFeedType() -> PostFeedType {
-        selectedFeedType
-    }
-    
-    func didSelectFeedType(with typeTitle: String) {
-        guard typeTitle != self.selectedFeedType.title else {
-            return
-        }
-        
-        guard let selectedFeedType = PostFeedType.allCases.first(where: {
-            $0.title.lowercased() == typeTitle.lowercased()
-        }) else {
+    func didSelectFeedType(with index: Int) {
+        guard index >= .zero,
+              index < PostFeedType.allCases.count else {
             view.showError(message: AlertConstant.defaultAlertErrorMessage)
             return
         }
 
-        self.selectedFeedType = selectedFeedType
+        let selectedType = PostFeedType.allCases[index]
+
+        guard selectedType != self.selectedFeedType else {
+            return
+        }
+        self.selectedFeedType = selectedType
         setAllPostsIsExpandedState(to: false)
     }
 }
