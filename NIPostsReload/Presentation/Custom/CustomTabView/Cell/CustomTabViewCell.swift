@@ -16,7 +16,6 @@ final class CustomTabViewCell: UICollectionViewCell {
     
     // MARK: - Properties -
     
-    static let identifier = String(describing: CustomTabViewCell.self)
     private var selectedStateColor: UIColor = .cyan
     private var defaultStateColor: UIColor = .white
     

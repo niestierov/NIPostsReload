@@ -12,7 +12,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         static let defaultHorizontalInset: CGFloat = 12
         static let defaultVerticalInset: CGFloat = 12
         static let defaultDescriptionNumberOfLines = 2
-        static let systemLikesImage = "heart.circle.fill"
+        static let systemLikeImageName = "heart.circle.fill"
         static let expandTitle = "Expand"
         static let collapseTitle = "Collapse"
     }
@@ -29,6 +29,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     private lazy var postTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.setContentHuggingPriority(.required, for: .vertical)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -72,7 +73,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     }()
     private lazy var postLikesImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(systemName: Constant.systemLikesImage)
+        view.image = UIImage(systemName: Constant.systemLikeImageName)
         view.backgroundColor = .clear
         view.tintColor = .red
         view.applyPriority()

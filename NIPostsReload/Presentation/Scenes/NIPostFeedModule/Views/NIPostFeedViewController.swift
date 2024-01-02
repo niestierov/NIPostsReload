@@ -14,11 +14,7 @@ protocol NIPostFeedView: AnyObject {
 
 final class NIPostFeedViewController: UIViewController {
     private struct Constant {
-        static let tabList = [
-            PostFeedType.list.title,
-            PostFeedType.grid.title,
-            PostFeedType.gallery.title
-        ]
+        static var tabList: [String] = PostFeedType.allCases.map { $0.title }
         static let defaultInset: CGFloat = 10
         static let defaultItemInset: CGFloat = 5
         static let gridItemHeight: CGFloat = 300
@@ -106,33 +102,10 @@ private extension NIPostFeedViewController {
     }
     
     func updateCollectionViewFeedType(for index: Int) {
-        guard let selectedFeedType = getSelectedFeedType(for: index) else {
-            return
-        }
-        presenter.updateSelectedFeedType(with: selectedFeedType)
+        presenter.didSelectFeedType(with: Constant.tabList[index])
         updateCollectionView()
     }
-    
-    func getSelectedFeedType(for index: Int) -> PostFeedType? {
-        guard index < Constant.tabList.count else {
-            return nil
-        }
-        let selectedTabTitle = Constant.tabList[index]
-        
-        guard selectedTabTitle != presenter.getSelectedFeedType().title else {
-            return nil
-        }
-        
-        guard let selectedFeedType = PostFeedType.allCases.first(where: {
-            $0.title.lowercased() == selectedTabTitle.lowercased()
-        }) else {
-            showError(message: AlertConstant.defaultAlertErrorMessage)
-            return nil
-        }
-        
-        return selectedFeedType
-    }
-    
+
     func updateCollectionView() {
         updateCollectionViewLayout()
         collectionView.scrollToItem(
@@ -153,7 +126,7 @@ private extension NIPostFeedViewController {
         at index: Int
     ) {
         let isExpanded = presenter.changePostIsExpandedState(at: index)
-        let type = presenter.getSelectedFeedType()
+        let type = presenter.selectedFeedType
         
         cell.updateContent(with: isExpanded, for: type)
         
@@ -198,7 +171,7 @@ extension NIPostFeedViewController: UICollectionViewDataSource {
             at: indexPath
         )
         let post = presenter.getPostItem(at: indexPath.item)
-        let type = presenter.getSelectedFeedType()
+        let type = presenter.selectedFeedType
         
         cell.configure(
             with: post,
@@ -222,16 +195,16 @@ extension NIPostFeedViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - UICollectionViewCompositionalLayout -
+// MARK: - CollectionViewLayoutProvider -
 
-extension NIPostFeedViewController {
+extension NIPostFeedViewController: CollectionViewLayoutProvider {
     func makeCompositionalLayout() -> UICollectionViewCompositionalLayout {
         let layout = UICollectionViewCompositionalLayout { [weak self] section, environment in
             guard let self else {
                 return nil
             }
             
-            switch presenter.getSelectedFeedType() {
+            switch presenter.selectedFeedType {
             case .list:
                 return makeListSection()
             case .grid:
@@ -245,14 +218,14 @@ extension NIPostFeedViewController {
     }
     
     func makeListSection() -> NSCollectionLayoutSection {
-         let item = createCollectionViewItem()
-         let group = createCollectionViewVerticalGroup(with: [item])
-         let section = createCollectionViewSection(with: group)
+         let item = createItem()
+         let group = createVerticalGroup(with: [item])
+         let section = createSection(with: group)
          return section
      }
 
     func makeGridSection() -> NSCollectionLayoutSection {
-        let item = createCollectionViewItem(
+        let item = createItem(
             width: .fractionalWidth(0.5),
             height: .absolute(Constant.gridItemHeight)
         )
@@ -263,10 +236,10 @@ extension NIPostFeedViewController {
             trailing: .zero
         )
         
-        let horizontalGroup = createCollectionViewHorizontalGroup(with: [item, item])
+        let horizontalGroup = createHorizontalGroup(with: [item, item])
         horizontalGroup.interItemSpacing = .fixed(Constant.defaultInset)
         
-        let section = createCollectionViewSection(with: horizontalGroup)
+        let section = createSection(with: horizontalGroup)
         section.contentInsets = NSDirectionalEdgeInsets(
             top: Constant.defaultInset,
             leading: Constant.defaultInset,
@@ -278,9 +251,9 @@ extension NIPostFeedViewController {
     }
 
     func makeGallerySection() -> NSCollectionLayoutSection {
-        let item = createCollectionViewItem()
-        let group = createCollectionViewVerticalGroup(with: [item])
-        let section = createCollectionViewSection(with: group)
+        let item = createItem()
+        let group = createVerticalGroup(with: [item])
+        let section = createSection(with: group)
         return section
     }
 }

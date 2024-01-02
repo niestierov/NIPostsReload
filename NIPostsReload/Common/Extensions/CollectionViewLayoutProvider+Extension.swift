@@ -1,5 +1,5 @@
 //
-//  UIViewController+CompositionalLayout.swift
+//  CollectionViewLayoutProvider+Extension.swift
 //  NIPostsReload
 //
 //  Created by Denys Niestierov on 29.12.2023.
@@ -7,8 +7,29 @@
 
 import UIKit
 
-extension UIViewController {
-    func createCollectionViewItem(
+protocol CollectionViewLayoutProvider {
+    func createItem(
+        width: NSCollectionLayoutDimension,
+        height: NSCollectionLayoutDimension
+    ) -> NSCollectionLayoutItem
+
+    func createVerticalGroup(
+        with subitems: [NSCollectionLayoutItem],
+        width: NSCollectionLayoutDimension,
+        height: NSCollectionLayoutDimension
+    ) -> NSCollectionLayoutGroup
+
+    func createHorizontalGroup(
+        with subitems: [NSCollectionLayoutItem],
+        width: NSCollectionLayoutDimension,
+        height: NSCollectionLayoutDimension
+    ) -> NSCollectionLayoutGroup
+
+    func createSection(with group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection
+}
+
+extension CollectionViewLayoutProvider {
+    func createItem(
         width: NSCollectionLayoutDimension = .fractionalWidth(1),
         height: NSCollectionLayoutDimension = .estimated(44)
     ) -> NSCollectionLayoutItem {
@@ -19,7 +40,7 @@ extension UIViewController {
         return NSCollectionLayoutItem(layoutSize: itemSize)
     }
 
-    func createCollectionViewVerticalGroup(
+    func createVerticalGroup(
         with subitems: [NSCollectionLayoutItem],
         width: NSCollectionLayoutDimension = .fractionalWidth(1),
         height: NSCollectionLayoutDimension = .estimated(44)
@@ -33,8 +54,8 @@ extension UIViewController {
             subitems: subitems
         )
     }
-    
-    func createCollectionViewHorizontalGroup(
+
+    func createHorizontalGroup(
         with subitems: [NSCollectionLayoutItem],
         width: NSCollectionLayoutDimension = .fractionalWidth(1),
         height: NSCollectionLayoutDimension = .estimated(44)
@@ -49,7 +70,7 @@ extension UIViewController {
         )
     }
 
-    func createCollectionViewSection(with group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection {
+    func createSection(with group: NSCollectionLayoutGroup) -> NSCollectionLayoutSection {
         NSCollectionLayoutSection(group: group)
     }
 }

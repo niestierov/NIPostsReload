@@ -10,7 +10,7 @@
 		9A07DFCC2B20BB5E00C87512 /* StringConvertible+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DFCB2B20BB5E00C87512 /* StringConvertible+Extension.swift */; };
 		9A07DFCE2B20BE1200C87512 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A07DFCD2B20BE1200C87512 /* Date+Extension.swift */; };
 		9A0A8F172B2C68960073D2EE /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0A8F162B2C68960073D2EE /* UIViewController+Alert.swift */; };
-		9A2534DB2B3F3EC200864E54 /* UIViewController+CompositionalLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2534DA2B3F3EC200864E54 /* UIViewController+CompositionalLayout.swift */; };
+		9A2534DB2B3F3EC200864E54 /* CollectionViewLayoutProvider+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2534DA2B3F3EC200864E54 /* CollectionViewLayoutProvider+Extension.swift */; };
 		9A2534DF2B3F3F9D00864E54 /* PostFeedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2534DE2B3F3F9D00864E54 /* PostFeedType.swift */; };
 		9A2534E52B3F406800864E54 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2534E22B3F406800864E54 /* CustomTabView.swift */; };
 		9A2534E62B3F406800864E54 /* CustomTabViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2534E42B3F406800864E54 /* CustomTabViewCell.swift */; };
@@ -55,7 +55,7 @@
 		9A07DFCB2B20BB5E00C87512 /* StringConvertible+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StringConvertible+Extension.swift"; sourceTree = "<group>"; };
 		9A07DFCD2B20BE1200C87512 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		9A0A8F162B2C68960073D2EE /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
-		9A2534DA2B3F3EC200864E54 /* UIViewController+CompositionalLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+CompositionalLayout.swift"; sourceTree = "<group>"; };
+		9A2534DA2B3F3EC200864E54 /* CollectionViewLayoutProvider+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionViewLayoutProvider+Extension.swift"; sourceTree = "<group>"; };
 		9A2534DE2B3F3F9D00864E54 /* PostFeedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFeedType.swift; sourceTree = "<group>"; };
 		9A2534E22B3F406800864E54 /* CustomTabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
 		9A2534E42B3F406800864E54 /* CustomTabViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTabViewCell.swift; sourceTree = "<group>"; };
@@ -113,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				9A0A8F162B2C68960073D2EE /* UIViewController+Alert.swift */,
-				9A2534DA2B3F3EC200864E54 /* UIViewController+CompositionalLayout.swift */,
 			);
 			path = UIViewController;
 			sourceTree = "<group>";
@@ -279,6 +278,7 @@
 				9A2534DD2B3F3F6F00864E54 /* UIView */,
 				9A2534DC2B3F3F6100864E54 /* UIViewController */,
 				9A4593C42B207FF200B70EEC /* SelfIdentifiable+Extension.swift */,
+				9A2534DA2B3F3EC200864E54 /* CollectionViewLayoutProvider+Extension.swift */,
 				9A4593C62B20800200B70EEC /* UICollectionView+Reusable.swift */,
 				9A07DFCB2B20BB5E00C87512 /* StringConvertible+Extension.swift */,
 				9A07DFCD2B20BE1200C87512 /* Date+Extension.swift */,
@@ -559,7 +559,7 @@
 				9A2534E62B3F406800864E54 /* CustomTabViewCell.swift in Sources */,
 				9AAE49122B28A9BF00E5EB77 /* EndPoint.swift in Sources */,
 				9AB383A32B33381400D690EA /* NIPostViewState.swift in Sources */,
-				9A2534DB2B3F3EC200864E54 /* UIViewController+CompositionalLayout.swift in Sources */,
+				9A2534DB2B3F3EC200864E54 /* CollectionViewLayoutProvider+Extension.swift in Sources */,
 				9A07DFCE2B20BE1200C87512 /* Date+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
