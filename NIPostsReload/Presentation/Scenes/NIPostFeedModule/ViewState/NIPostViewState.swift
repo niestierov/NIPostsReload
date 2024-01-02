@@ -12,7 +12,7 @@ struct NIPostViewState {
         let postId: Int
         let title: String
         let previewText: String
-        let date: String
+        let date: Date
         let likesCount: Int
         
         var isExpanded = false
@@ -29,13 +29,12 @@ extension NIPostViewState {
             let previewText = post.previewText ?? ""
             let likesCount = post.likesCount ?? .zero
             let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero)
-            let dateString = date.asFormattedString()
             
             return NIPostViewState.Post(
                 postId: postId,
                 title: title,
                 previewText: previewText,
-                date: dateString,
+                date: date,
                 likesCount: likesCount
             )
         }

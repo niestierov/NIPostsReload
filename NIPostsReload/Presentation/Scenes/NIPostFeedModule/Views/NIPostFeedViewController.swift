@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NIPostFeedView: AnyObject { 
+protocol NIPostFeedView: AnyObject {
     func update()
     func showError(message: String)
     func updateCollectionViewLayout()
@@ -19,6 +19,9 @@ final class NIPostFeedViewController: UIViewController {
         static let defaultInset: CGFloat = 10
         static let defaultItemInset: CGFloat = 5
         static let gridItemHeight: CGFloat = 300
+        static let sortMenuTitle = "Sort by"
+        static let sortButtonImageName = "arrow.up.and.down.text.horizontal"
+        static let searchBarPlaceholder = "Find a post"
     }
     
     // MARK: - Properties -
@@ -53,12 +56,48 @@ final class NIPostFeedViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.placeholder = Constant.searchBarPlaceholder
+        searchBar.searchBarStyle = .minimal
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    private lazy var sortMenu: UIMenu = {
+        return UIMenu(
+            title: Constant.sortMenuTitle,
+            children: PostFeedSortType.allCases.map { type in
+                UIAction(title: type.title) { [weak self] _ in
+                    self?.presenter.sortPosts(by: type)
+                }
+            }
+        )
+    }()
+    private lazy var sortButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: Constant.sortButtonImageName)
+        button.setImage(image, for: .normal)
+        button.tintColor = .darkGray
+        button.backgroundColor = .clear
+        button.showsMenuAsPrimaryAction = true
+        button.menu = sortMenu
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    private lazy var topStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.backgroundColor = .white
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     // MARK: - Life Cycle -
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupView()
         presenter.initialSetup()
     }
@@ -86,22 +125,38 @@ private extension NIPostFeedViewController {
     func setupView() {
         view.backgroundColor = .white
         
+        view.addSubview(topStackView)
         view.addSubview(tabView)
         view.addSubview(collectionView)
-
+        
+        topStackView.addArrangedSubview(searchBar)
+        topStackView.addArrangedSubview(sortButton)
+        
         NSLayoutConstraint.activate([
-            tabView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            topStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            topStackView.trailingAnchor.constraint(
+                equalTo: view.trailingAnchor,
+                constant: -20
+            ),
+            topStackView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor,
+                constant: 10
+            ),
+            topStackView.heightAnchor.constraint(equalToConstant: 50),
+            
+            tabView.topAnchor.constraint(equalTo: topStackView.bottomAnchor),
             tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tabView.heightAnchor.constraint(equalToConstant: 50),
-
+            tabView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
             collectionView.topAnchor.constraint(equalTo: tabView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-
+    
     func updateCell(
         _ cell: NIPostFeedCollectionViewCell,
         at index: Int
@@ -205,17 +260,17 @@ extension NIPostFeedViewController: CollectionViewLayoutProvider {
                 return makeGallerySection()
             }
         }
-
+        
         return layout
     }
     
     func makeListSection() -> NSCollectionLayoutSection {
-         let item = createItem()
-         let group = createVerticalGroup(with: [item])
-         let section = createSection(with: group)
-         return section
-     }
-
+        let item = createItem()
+        let group = createVerticalGroup(with: [item])
+        let section = createSection(with: group)
+        return section
+    }
+    
     func makeGridSection() -> NSCollectionLayoutSection {
         let item = createItem(
             width: .fractionalWidth(0.5),
@@ -241,11 +296,23 @@ extension NIPostFeedViewController: CollectionViewLayoutProvider {
         
         return section
     }
-
+    
     func makeGallerySection() -> NSCollectionLayoutSection {
         let item = createItem()
         let group = createVerticalGroup(with: [item])
         let section = createSection(with: group)
         return section
+    }
+}
+
+// MARK: - UISearchBarDelegate -
+
+extension NIPostFeedViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter.searchPosts(query: searchText)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchPosts(query: nil)
     }
 }

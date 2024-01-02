@@ -132,7 +132,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         postTitleLabel.text = post.title
         postDescriptionLabel.text = post.previewText
         postLikesLabel.text = post.likesCount.stringValue
-        postDateLabel.text = post.date
+        postDateLabel.text = post.date.asFormattedString()
         updateHandler = update
         
         updateContent(with: post.isExpanded, for: type)
