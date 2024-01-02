@@ -13,6 +13,8 @@ protocol NIPostFeedPresenter: AnyObject {
     func getPostItem(at index: Int) -> NIPostViewState.Post
     func didSelectPost(at index: Int)
     func changePostIsExpandedState(at index: Int) -> Bool
+    func getSelectedFeedType() -> PostFeedType
+    func updateSelectedFeedType(with type: PostFeedType)
 }
 
 final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
@@ -23,6 +25,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     private unowned let view: NIPostFeedView
     private let apiService: NIPostFeedAPIService
     private var postViewState = NIPostViewState(posts: [])
+    private var selectedFeedType: PostFeedType = .list
     
     // MARK: - Life Cycle -
     
@@ -49,6 +52,19 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     func getPostFeedCount() -> Int {
         postViewState.posts.count
     }
+    
+    func getSelectedFeedType() -> PostFeedType {
+        selectedFeedType
+    }
+    
+    func updateSelectedFeedType(with type: PostFeedType) {
+        selectedFeedType = type
+        
+        postViewState.posts.indices.forEach {
+            postViewState.posts[$0].isExpanded = false
+        }
+    }
+    
     
     func didSelectPost(at index: Int) {
         let postId = postViewState.posts[index].postId

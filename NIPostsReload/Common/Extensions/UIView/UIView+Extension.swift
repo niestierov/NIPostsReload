@@ -15,4 +15,20 @@ extension UIView {
         self.layer.cornerRadius = cornerRadius
         self.layer.cornerCurve = cornerCurve
     }
+    
+    func applyPriority(
+        contentHuggingPriority: UILayoutPriority = .required,
+        contentHuggingAxis: NSLayoutConstraint.Axis = .vertical,
+        contentCompressionResistancePriority : UILayoutPriority = .required,
+        contentCompressionResistanceAxis: NSLayoutConstraint.Axis = .vertical
+    ) {
+        self.setContentHuggingPriority(
+            contentHuggingPriority,
+            for: contentHuggingAxis
+        )
+        self.setContentCompressionResistancePriority(
+            contentCompressionResistancePriority,
+            for: contentCompressionResistanceAxis
+        )
+    }
 }

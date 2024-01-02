@@ -9,8 +9,8 @@ import UIKit
 
 final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     private struct Constant {
-        static let defaultHorizontalInset: CGFloat = 20
-        static let defaultVerticalInset: CGFloat = 20
+        static let defaultHorizontalInset: CGFloat = 12
+        static let defaultVerticalInset: CGFloat = 12
         static let defaultDescriptionNumberOfLines = 2
         static let systemLikesImage = "heart.circle.fill"
         static let expandTitle = "Expand"
@@ -30,6 +30,8 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -38,13 +40,18 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         label.textColor = .black
         label.contentMode = .top
         label.font = .systemFont(ofSize: 16, weight: .regular)
+        label.applyPriority(
+            contentHuggingPriority: .defaultLow,
+            contentCompressionResistancePriority: .defaultLow
+        )
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private lazy var horizontalStackView: UIStackView = {
+    private lazy var detailsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .equalSpacing
+        stackView.applyPriority()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -52,12 +59,14 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 5
+        stackView.applyPriority()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     private lazy var postLikesLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.applyPriority()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,12 +75,14 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         view.image = UIImage(systemName: Constant.systemLikesImage)
         view.backgroundColor = .clear
         view.tintColor = .red
+        view.applyPriority()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     private lazy var postDateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
+        label.applyPriority()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -84,6 +95,12 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         button.addTarget(self, action: #selector(tappedExpandButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    private lazy var underlineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightGray
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     // MARK: - Properties -
@@ -108,6 +125,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     
     func configure(
         with post: NIPostViewState.Post,
+        type: PostFeedType,
         update: @escaping EmptyBlock
     ) {
         postTitleLabel.text = post.title
@@ -116,15 +134,21 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
         postDateLabel.text = post.date
         updateHandler = update
         
-        updateContent(with: post.isExpanded)
-        updateExpandButtonVisibility()
+        updateContent(with: post.isExpanded, for: type)
     }
     
-    func updateContent(with isExpanded: Bool) {
-        let title = isExpanded ? Constant.collapseTitle : Constant.expandTitle
-        postExpandButton.setTitle(title, for: .normal)
-        
-        postDescriptionLabel.numberOfLines = isExpanded ? .zero : Constant.defaultDescriptionNumberOfLines
+    func updateContent(
+        with isExpanded: Bool,
+        for type: PostFeedType
+    ) {
+        switch type {
+        case .list:
+            updateCellForListType(with: isExpanded)
+        case .grid:
+            updateCellForGridType()
+        case .gallery:
+            updateCellForGalleryType()
+        }
     }
 }
 
@@ -135,14 +159,15 @@ private extension NIPostFeedCollectionViewCell {
         contentView.backgroundColor = .white
         
         contentView.addSubview(mainStackView)
+        contentView.addSubview(underlineView)
         
         mainStackView.addArrangedSubview(postTitleLabel)
         mainStackView.addArrangedSubview(postDescriptionLabel)
-        mainStackView.addArrangedSubview(horizontalStackView)
+        mainStackView.addArrangedSubview(detailsStackView)
         mainStackView.addArrangedSubview(postExpandButton)
         
-        horizontalStackView.addArrangedSubview(likesStackView)
-        horizontalStackView.addArrangedSubview(postDateLabel)
+        detailsStackView.addArrangedSubview(likesStackView)
+        detailsStackView.addArrangedSubview(postDateLabel)
         
         likesStackView.addArrangedSubview(postLikesImageView)
         likesStackView.addArrangedSubview(postLikesLabel)
@@ -151,10 +176,6 @@ private extension NIPostFeedCollectionViewCell {
             mainStackView.topAnchor.constraint(
                 equalTo: contentView.topAnchor,
                 constant: Constant.defaultVerticalInset
-            ),
-            mainStackView.bottomAnchor.constraint(
-                equalTo: contentView.bottomAnchor,
-                constant: -Constant.defaultVerticalInset
             ),
             mainStackView.leadingAnchor.constraint(
                 equalTo: contentView.leadingAnchor,
@@ -165,14 +186,108 @@ private extension NIPostFeedCollectionViewCell {
                 constant: -Constant.defaultHorizontalInset
             ),
             
-            postExpandButton.heightAnchor.constraint(equalToConstant: 35)
+            detailsStackView.leadingAnchor.constraint(equalTo: mainStackView.leadingAnchor),
+            detailsStackView.trailingAnchor.constraint(equalTo: mainStackView.trailingAnchor),
+            
+            postExpandButton.heightAnchor.constraint(equalToConstant: 35),
+            
+            underlineView.topAnchor.constraint(
+                equalTo: mainStackView.bottomAnchor,
+                constant: Constant.defaultVerticalInset
+            ),
+            underlineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            underlineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            underlineView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            underlineView.heightAnchor.constraint(equalToConstant: 1)
         ])
 
         layoutIfNeeded()
     }
     
-    func updateExpandButtonVisibility() {
+    func updateCellForListType(with isExpanded: Bool) {
+        let descriptionLabelNumberOfLines = isExpanded ? .zero : Constant.defaultDescriptionNumberOfLines
+        configureMainStackViewContent(descriptionLabelNumberOfLines: descriptionLabelNumberOfLines)
+        
+        configureContentView()
+        updateExpandButton(with: isExpanded)
+        configureStackViews()
+        updateDetailsStackViewHeight()
+    }
+    
+    func updateCellForGridType() {
+        configureMainStackViewContent(
+            isUnderlineViewHidden: true,
+            titleLabelNumberOfLines: .zero
+        )
+        configureContentView(
+            borderColor: UIColor.black.cgColor,
+            borderWidth: 1,
+            cornerRadius: 15
+        )
+        configureStackViews(
+            mainStackViewDistribution: .fillProportionally,
+            detailsStackViewAlignment: .center,
+            detailsStackViewAxis: .vertical
+        )
+        updateDetailsStackViewHeight()
+    }
+    
+    func updateCellForGalleryType() {
+        configureMainStackViewContent()
+        configureContentView()
+        configureStackViews()
+        updateDetailsStackViewHeight()
+    }
+    
+    func configureStackViews(
+        mainStackViewDistribution: UIStackView.Distribution = .fill,
+        detailsStackViewAlignment: UIStackView.Alignment = .fill,
+        detailsStackViewAxis: NSLayoutConstraint.Axis = .horizontal
+    ) {
+        mainStackView.distribution = mainStackViewDistribution
+        detailsStackView.alignment = detailsStackViewAlignment
+        detailsStackView.axis = detailsStackViewAxis
+    }
+
+    func updateDetailsStackViewHeight() {
+        detailsStackView.removeConstraints(
+            detailsStackView.constraints.filter { $0.firstAttribute == .height }
+        )
+
+        let targetSize = UIView.layoutFittingCompressedSize
+        let detailsStackViewHeight = detailsStackView.systemLayoutSizeFitting(targetSize).height
+        detailsStackView.heightAnchor.constraint(equalToConstant: detailsStackViewHeight).isActive = true
+    }
+    
+    func configureMainStackViewContent(
+        isUnderlineViewHidden: Bool = false,
+        isExpandButtonHidden: Bool = true,
+        titleLabelNumberOfLines: Int = 1,
+        descriptionLabelNumberOfLines: Int = .zero
+    ) {
+        underlineView.isHidden = isUnderlineViewHidden
+        postExpandButton.isHidden = isExpandButtonHidden
+        postTitleLabel.numberOfLines = titleLabelNumberOfLines
+        postDescriptionLabel.numberOfLines = descriptionLabelNumberOfLines
+    }
+    
+    func configureContentView(
+        borderColor: CGColor? = .none,
+        borderWidth: CGFloat = .zero,
+        cornerRadius: CGFloat = .zero
+    ) {
+        contentView.layer.borderColor = borderColor
+        contentView.layer.borderWidth = borderWidth
+        contentView.layer.cornerRadius = cornerRadius
+    }
+    
+    func updateExpandButton(with isExpanded: Bool) {
         postExpandButton.isHidden = postDescriptionLabel.fitsInLines()
+        
+        if !postExpandButton.isHidden {
+            let title = isExpanded ? Constant.collapseTitle : Constant.expandTitle
+            postExpandButton.setTitle(title, for: .normal)
+        }
     }
     
     @objc func tappedExpandButton() {

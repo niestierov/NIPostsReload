@@ -13,6 +13,16 @@ protocol NIPostFeedView: AnyObject {
 }
 
 final class NIPostFeedViewController: UIViewController {
+    private struct Constant {
+        static let tabList = [
+            PostFeedType.list.title,
+            PostFeedType.grid.title,
+            PostFeedType.gallery.title
+        ]
+        static let defaultInset: CGFloat = 10
+        static let defaultItemInset: CGFloat = 5
+        static let gridItemHeight: CGFloat = 300
+    }
     
     // MARK: - Properties -
     
@@ -32,6 +42,20 @@ final class NIPostFeedViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    private lazy var tabView: CustomTabView = {
+        let view = CustomTabView(tabs: Constant.tabList)
+        view.didSelectTabAt = { [weak self] index in
+            self?.updateCollectionViewFeedType(for: index)
+        }
+        view.configure(
+            backgroundColor: .white,
+            indicatorColor: .systemBlue,
+            defaultTabColor: .darkGray,
+            selectedTabColor: .systemBlue
+        )
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     // MARK: - Life Cycle -
     
@@ -39,14 +63,13 @@ final class NIPostFeedViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
-        setupCollectionView()
         presenter.initialSetup()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.isNavigationBarHidden = true
+        setupNavigationBar()
     }
     
     // MARK: - Internal -
@@ -59,27 +82,80 @@ final class NIPostFeedViewController: UIViewController {
 // MARK: - Private -
 
 private extension NIPostFeedViewController {
-    func setupView() {
-        view.backgroundColor = .white
+    func setupNavigationBar() {
+        navigationController?.isNavigationBarHidden = true
     }
     
-    func setupCollectionView() {
+    func setupView() {
+        view.backgroundColor = .white
+        
+        view.addSubview(tabView)
         view.addSubview(collectionView)
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tabView.heightAnchor.constraint(equalToConstant: 50),
+
+            collectionView.topAnchor.constraint(equalTo: tabView.bottomAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
-
+    
+    func updateCollectionViewFeedType(for index: Int) {
+        guard let selectedFeedType = getSelectedFeedType(for: index) else {
+            return
+        }
+        presenter.updateSelectedFeedType(with: selectedFeedType)
+        updateCollectionView()
+    }
+    
+    func getSelectedFeedType(for index: Int) -> PostFeedType? {
+        guard index < Constant.tabList.count else {
+            return nil
+        }
+        let selectedTabTitle = Constant.tabList[index]
+        
+        guard selectedTabTitle != presenter.getSelectedFeedType().title else {
+            return nil
+        }
+        
+        guard let selectedFeedType = PostFeedType.allCases.first(where: {
+            $0.title.lowercased() == selectedTabTitle.lowercased()
+        }) else {
+            showError(message: AlertConstant.defaultAlertErrorMessage)
+            return nil
+        }
+        
+        return selectedFeedType
+    }
+    
+    func updateCollectionView() {
+        updateCollectionViewLayout()
+        collectionView.scrollToItem(
+            at: [.zero, .zero],
+            at: .top,
+            animated: false
+        )
+    }
+    
+    func updateCollectionViewLayout() {
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.layoutIfNeeded()
+        collectionView.reloadData()
+    }
+    
     func updateCell(
         _ cell: NIPostFeedCollectionViewCell,
         at index: Int
     ) {
         let isExpanded = presenter.changePostIsExpandedState(at: index)
-        cell.updateContent(with: isExpanded)
+        let type = presenter.getSelectedFeedType()
+        
+        cell.updateContent(with: isExpanded, for: type)
         
         UIView.animate(withDuration: 0.2) {
             cell.layoutIfNeeded()
@@ -122,15 +198,17 @@ extension NIPostFeedViewController: UICollectionViewDataSource {
             at: indexPath
         )
         let post = presenter.getPostItem(at: indexPath.item)
-
-        cell.configure(with: post) { [weak self] in
+        let type = presenter.getSelectedFeedType()
+        
+        cell.configure(
+            with: post,
+            type:type
+        ) { [weak self] in
             self?.updateCell(cell, at: indexPath.item)
         }
         
         return cell
     }
-    
-    
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout -
@@ -153,12 +231,56 @@ extension NIPostFeedViewController {
                 return nil
             }
             
-            let item = createCollectionViewItem()
-            let group = createCollectionViewVerticalGroup(with: [item])
-            let section = createCollectionViewSection(with: group)
-            return section
+            switch presenter.getSelectedFeedType() {
+            case .list:
+                return makeListSection()
+            case .grid:
+                return makeGridSection()
+            case .gallery:
+                return makeGallerySection()
+            }
         }
 
         return layout
+    }
+    
+    func makeListSection() -> NSCollectionLayoutSection {
+         let item = createCollectionViewItem()
+         let group = createCollectionViewVerticalGroup(with: [item])
+         let section = createCollectionViewSection(with: group)
+         return section
+     }
+
+    func makeGridSection() -> NSCollectionLayoutSection {
+        let item = createCollectionViewItem(
+            width: .fractionalWidth(0.5),
+            height: .absolute(Constant.gridItemHeight)
+        )
+        item.contentInsets = NSDirectionalEdgeInsets(
+            top: Constant.defaultItemInset,
+            leading: .zero,
+            bottom: Constant.defaultItemInset,
+            trailing: .zero
+        )
+        
+        let horizontalGroup = createCollectionViewHorizontalGroup(with: [item, item])
+        horizontalGroup.interItemSpacing = .fixed(Constant.defaultInset)
+        
+        let section = createCollectionViewSection(with: horizontalGroup)
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: Constant.defaultInset,
+            leading: Constant.defaultInset,
+            bottom: Constant.defaultInset,
+            trailing: Constant.defaultInset
+        )
+        
+        return section
+    }
+
+    func makeGallerySection() -> NSCollectionLayoutSection {
+        let item = createCollectionViewItem()
+        let group = createCollectionViewVerticalGroup(with: [item])
+        let section = createCollectionViewSection(with: group)
+        return section
     }
 }
