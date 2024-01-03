@@ -115,7 +115,9 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
             return
         }
         
-        searchWorkItem = DispatchWorkItem { [unowned self] in
+        searchWorkItem = DispatchWorkItem { [weak self] in
+            guard let self else { return }
+            
             let queryPosts = postViewState.posts.filter { $0.previewText.localizedCaseInsensitiveContains(query)
             }
             postViewState.posts = queryPosts
@@ -132,15 +134,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     }
     
     func sortPosts(by sortType: PostFeedSortType) {
-        switch sortType {
-        case .date:
-            postViewState.posts.sort { $0.date > $1.date }
-        case .popularity:
-            postViewState.posts.sort { $0.likesCount > $1.likesCount }
-        case .default:
-            postViewState.posts.sort { $0.postId < $1.postId }
-        }
-        
+        postViewState.sort(by: sortType)
         selectedSortType = sortType
         view.update()
     }

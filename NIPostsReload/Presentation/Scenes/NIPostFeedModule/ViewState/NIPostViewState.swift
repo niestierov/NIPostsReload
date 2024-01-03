@@ -19,6 +19,17 @@ struct NIPostViewState {
     }
     
     var posts: [Post]
+    
+    mutating func sort(by sortType: PostFeedSortType) {
+        switch sortType {
+        case .date:
+            posts.sort { $0.date > $1.date }
+        case .popularity:
+            posts.sort { $0.likesCount > $1.likesCount }
+        case .default:
+            posts.sort { $0.postId < $1.postId }
+        }
+    }
 }
 
 extension NIPostViewState {
