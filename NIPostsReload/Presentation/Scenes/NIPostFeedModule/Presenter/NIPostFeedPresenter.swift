@@ -44,7 +44,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     private let router: NIPostFeedRouter
     private unowned let view: NIPostFeedView
     private let apiService: NIPostFeedAPIService
-    private var postViewState = NIPostViewState(posts: [])
+    private var postViewState = NIPostViewState()
     private(set) var selectedFeedType: PostFeedType = .list
     private var selectedSortType: PostFeedSortType = .default
     private var searchWorkItem: DispatchWorkItem?
@@ -68,22 +68,22 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     }
     
     func getPostItem(at index: Int) -> NIPostViewState.Post {
-        postViewState.posts[index]
+        postViewState.items[index]
     }
     
     func getPostFeedCount() -> Int {
-        postViewState.posts.count
+        postViewState.items.count
     }
     
     func didSelectPost(at index: Int) {
-        let postId = postViewState.posts[index].postId
+        let postId = postViewState.getPost(ad: index).postId
         router.showPostDetails(postId: postId)
     }
     
     @discardableResult
     func changePostIsExpandedState(at index: Int) -> Bool {
-        postViewState.posts[index].isExpanded.toggle()
-        return postViewState.posts[index].isExpanded
+        postViewState.items[index].isExpanded.toggle()
+        return postViewState.items[index].isExpanded
     }
     
     func didSelectFeedType(with index: Int) {
@@ -118,9 +118,9 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         searchWorkItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
             
-            let queryPosts = postViewState.posts.filter { $0.previewText.localizedCaseInsensitiveContains(query)
+            let queryPosts = postViewState.items.filter { $0.previewText.localizedCaseInsensitiveContains(query)
             }
-            postViewState.posts = queryPosts
+            postViewState.items = queryPosts
             
             DispatchQueue.main.async {
                 self.view.update()
@@ -135,6 +135,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     
     func sortPosts(by sortType: PostFeedSortType) {
         postViewState.sort(by: sortType)
+        postViewState.makeViewState()
         selectedSortType = sortType
         view.update()
     }
@@ -162,14 +163,14 @@ private extension DefaultNIPostFeedPresenter {
     }
     
     func composePostViewStates(for posts: [NIPost]) {
-        postViewState = NIPostViewState.makeViewState(for: posts)
+        postViewState.setPosts(posts)
         sortPosts(by: selectedSortType)
         view.update()
     }
     
     func setAllPostsIsExpandedState(to value: Bool) {
-        postViewState.posts.indices.forEach {
-            postViewState.posts[$0].isExpanded = value
+        postViewState.items.indices.forEach {
+            postViewState.items[$0].isExpanded = value
         }
     }
 }

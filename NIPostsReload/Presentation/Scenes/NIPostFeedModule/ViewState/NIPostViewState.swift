@@ -9,40 +9,47 @@ import Foundation
 
 struct NIPostViewState {
     struct Post {
-        let postId: Int
         let title: String
         let previewText: String
-        let date: Date
-        let likesCount: Int
+        let date: String
+        let likesCount: String
         
         var isExpanded = false
     }
     
-    var posts: [Post]
+    var items: [Post] = []
+    private var posts: [NIPost] = []
     
     mutating func sort(by sortType: PostFeedSortType) {
         switch sortType {
         case .date:
-            posts.sort { $0.date > $1.date }
+            posts.sort { $0.timeshamp ?? 0 > $1.timeshamp ?? 0 }
         case .popularity:
-            posts.sort { $0.likesCount > $1.likesCount }
+            posts.sort { $0.likesCount ?? 0 > $1.likesCount ?? 0}
         case .default:
             posts.sort { $0.postId < $1.postId }
         }
+        
+        makeViewState()
     }
-}
-
-extension NIPostViewState {
-    static func makeViewState(for posts: [NIPost]) -> NIPostViewState {
+    
+    func getPost(ad index: Int) -> NIPost {
+        posts[index]
+    }
+    
+    mutating func setPosts(_ posts: [NIPost]) {
+        self.posts = posts
+        makeViewState()
+    }
+    
+    mutating func makeViewState() {
         let postViewStates = posts.compactMap { post in
-            let postId = post.postId
             let title = post.title ?? ""
             let previewText = post.previewText ?? ""
-            let likesCount = post.likesCount ?? .zero
-            let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero)
+            let likesCount = (post.likesCount ?? .zero).stringValue
+            let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero).asFormattedString()
             
             return NIPostViewState.Post(
-                postId: postId,
                 title: title,
                 previewText: previewText,
                 date: date,
@@ -50,6 +57,6 @@ extension NIPostViewState {
             )
         }
         
-        return NIPostViewState(posts: postViewStates)
+        self.items = postViewStates
     }
 }
