@@ -78,7 +78,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     }
     
     func didSelectPost(at index: Int) {
-        let postId = postViewState.getPost(at: index).postId
+        let postId = postViewState.getPost(by: index).postId
         router.showPostDetails(postId: postId)
     }
     
@@ -107,13 +107,13 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     
     func searchPosts(query: String?) {
         searchWorkItem?.cancel()
-        
+
         guard let query, !query.isEmpty else {
             updatePosts()
             return
         }
-        
-        guard query.count >= 2 && isInitialQuery else {
+
+        guard query.count >= 2 else {
             updatePosts()
             isInitialQuery = true
             return
@@ -126,10 +126,11 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         
         searchWorkItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
-            
-            postViewState.items = savedPosts.filter { $0.previewText.localizedCaseInsensitiveContains(query)
+
+            postViewState.items = savedPosts.filter {
+                return $0.previewText.localizedCaseInsensitiveContains(query)
             }
-            
+
             DispatchQueue.main.async {
                 self.view.update()
             }

@@ -20,7 +20,7 @@ struct NIPostViewState {
     var items: [Post] = []
     private var posts: [NIPost] = []
     
-    func getPost(at index: Int) -> NIPost {
+    func getPost(by index: Int) -> NIPost {
         posts[index]
     }
     
