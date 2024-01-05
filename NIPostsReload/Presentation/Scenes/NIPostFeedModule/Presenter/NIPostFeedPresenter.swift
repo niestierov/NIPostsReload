@@ -48,6 +48,8 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     private(set) var selectedFeedType: PostFeedType = .list
     private var selectedSortType: PostFeedSortType = .default
     private var searchWorkItem: DispatchWorkItem?
+    private var isInitialQuery = true
+    private var savedPosts: [NIPostViewState.Post] = []
     
     // MARK: - Life Cycle -
     
@@ -76,7 +78,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     }
     
     func didSelectPost(at index: Int) {
-        let postId = postViewState.getPost(ad: index).postId
+        let postId = postViewState.getPost(at: index).postId
         router.showPostDetails(postId: postId)
     }
     
@@ -111,16 +113,22 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
             return
         }
         
-        guard query.count >= 2 else {
+        guard query.count >= 2 && isInitialQuery else {
+            updatePosts()
+            isInitialQuery = true
             return
+        }
+        
+        if isInitialQuery {
+            savedPosts = postViewState.items
+            isInitialQuery = false
         }
         
         searchWorkItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
             
-            let queryPosts = postViewState.items.filter { $0.previewText.localizedCaseInsensitiveContains(query)
+            postViewState.items = savedPosts.filter { $0.previewText.localizedCaseInsensitiveContains(query)
             }
-            postViewState.items = queryPosts
             
             DispatchQueue.main.async {
                 self.view.update()

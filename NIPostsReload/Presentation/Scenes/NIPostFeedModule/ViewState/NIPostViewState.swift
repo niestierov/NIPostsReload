@@ -20,6 +20,10 @@ struct NIPostViewState {
     var items: [Post] = []
     private var posts: [NIPost] = []
     
+    func getPost(at index: Int) -> NIPost {
+        posts[index]
+    }
+    
     mutating func sort(by sortType: PostFeedSortType) {
         switch sortType {
         case .date:
@@ -31,10 +35,6 @@ struct NIPostViewState {
         }
         
         makeViewState()
-    }
-    
-    func getPost(ad index: Int) -> NIPost {
-        posts[index]
     }
     
     mutating func setPosts(_ posts: [NIPost]) {
