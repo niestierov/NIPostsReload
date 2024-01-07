@@ -114,7 +114,6 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         }
 
         guard query.count >= 2 else {
-            updatePosts()
             isInitialQuery = true
             return
         }
