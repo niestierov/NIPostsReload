@@ -9,6 +9,7 @@ import Foundation
 
 struct NIPostViewState {
     struct Post {
+        let postId: Int
         let title: String
         let previewText: String
         let date: String
@@ -18,7 +19,7 @@ struct NIPostViewState {
     }
     
     var items: [Post] = []
-    private var posts: [NIPost] = []
+    private(set) var posts: [NIPost] = []
     
     func getPost(by index: Int) -> NIPost {
         posts[index]
@@ -34,26 +35,29 @@ struct NIPostViewState {
             posts.sort { $0.postId < $1.postId }
         }
         
-        makeViewState()
+        makePost()
     }
     
     mutating func setPosts(_ posts: [NIPost]) {
         self.posts = posts
-        makeViewState()
+        makePost()
     }
     
-    mutating func makeViewState() {
+    mutating func makePost() {
         let postViewStates = posts.compactMap { post in
+            let isExpanded = items.first { $0.postId == post.postId }?.isExpanded ?? false
             let title = post.title ?? ""
             let previewText = post.previewText ?? ""
             let likesCount = (post.likesCount ?? .zero).stringValue
             let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero).asFormattedString()
             
             return NIPostViewState.Post(
+                postId: post.postId,
                 title: title,
                 previewText: previewText,
                 date: date,
-                likesCount: likesCount
+                likesCount: likesCount,
+                isExpanded: isExpanded
             )
         }
         

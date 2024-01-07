@@ -50,6 +50,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     private var searchWorkItem: DispatchWorkItem?
     private var isInitialQuery = true
     private var savedPosts: [NIPostViewState.Post] = []
+    private var searchQuary: String?
     
     // MARK: - Life Cycle -
     
@@ -126,9 +127,11 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
         searchWorkItem = DispatchWorkItem { [weak self] in
             guard let self else { return }
 
-            postViewState.items = savedPosts.filter {
-                return $0.previewText.localizedCaseInsensitiveContains(query)
+            let filteredPosts = postViewState.posts.filter {
+                return $0.previewText?.localizedCaseInsensitiveContains(query) ?? false
             }
+            
+            postViewState.setPosts(filteredPosts)
 
             DispatchQueue.main.async {
                 self.view.update()
@@ -143,7 +146,7 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     
     func sortPosts(by sortType: PostFeedSortType) {
         postViewState.sort(by: sortType)
-        postViewState.makeViewState()
+        postViewState.makePost()
         selectedSortType = sortType
         view.update()
     }
@@ -173,6 +176,7 @@ private extension DefaultNIPostFeedPresenter {
     func composePostViewStates(for posts: [NIPost]) {
         postViewState.setPosts(posts)
         sortPosts(by: selectedSortType)
+        setAllPostsIsExpandedState(to: false)
         view.update()
     }
     
