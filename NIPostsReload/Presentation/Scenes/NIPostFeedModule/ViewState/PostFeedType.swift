@@ -7,20 +7,9 @@
 
 import Foundation
 
-enum PostFeedType: CaseIterable {
-    case list
-    case grid
-    case gallery
-    
-    var title: String {
-        switch self {
-        case .list:
-            return "List"
-        case .grid:
-            return "Grid"
-        case .gallery:
-            return "Gallery"
-        }
-    }
+enum PostFeedType: String, CaseIterable {
+    case list = "List"
+    case grid = "Grid"
+    case gallery = "Gallery"
 }
 

@@ -13,33 +13,54 @@ struct NIPostViewState {
         let title: String
         let previewText: String
         let date: String
-        let likesCount: Int
+        let likesCount: String
         
         var isExpanded = false
     }
     
-    var posts: [Post]
-}
-
-extension NIPostViewState {
-    static func makeViewState(for posts: [NIPost]) -> NIPostViewState {
+    var items: [Post] = []
+    private(set) var posts: [NIPost] = []
+    
+    func getPost(by index: Int) -> NIPost {
+        posts[index]
+    }
+    
+    mutating func sort(by sortType: PostFeedSortType) {
+        switch sortType {
+        case .date:
+            posts.sort { $0.timeshamp ?? 0 > $1.timeshamp ?? 0 }
+        case .popularity:
+            posts.sort { $0.likesCount ?? 0 > $1.likesCount ?? 0}
+        case .default:
+            posts.sort { $0.postId < $1.postId }
+        }
+        
+        makePost()
+    }
+    
+    mutating func setPosts(_ posts: [NIPost]) {
+        self.posts = posts
+        makePost()
+    }
+    
+    mutating func makePost() {
         let postViewStates = posts.compactMap { post in
-            let postId = post.postId
+            let isExpanded = items.first { $0.postId == post.postId }?.isExpanded ?? false
             let title = post.title ?? ""
             let previewText = post.previewText ?? ""
-            let likesCount = post.likesCount ?? .zero
-            let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero)
-            let dateString = date.asFormattedString()
+            let likesCount = (post.likesCount ?? .zero).stringValue
+            let date = Date(timeIntervalSince1970: post.timeshamp ?? .zero).asFormattedString()
             
             return NIPostViewState.Post(
-                postId: postId,
+                postId: post.postId,
                 title: title,
                 previewText: previewText,
-                date: dateString,
-                likesCount: likesCount
+                date: date,
+                likesCount: likesCount,
+                isExpanded: isExpanded
             )
         }
         
-        return NIPostViewState(posts: postViewStates)
+        self.items = postViewStates
     }
 }
