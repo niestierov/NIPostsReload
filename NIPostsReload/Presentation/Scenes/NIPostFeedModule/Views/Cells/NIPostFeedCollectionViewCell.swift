@@ -29,7 +29,7 @@ final class NIPostFeedCollectionViewCell: UICollectionViewCell {
     private lazy var postTitleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.textAlignment = .center
+        label.numberOfLines = .zero
         label.font = UIFont.boldSystemFont(ofSize: 18)
         label.setContentHuggingPriority(.required, for: .vertical)
         label.setContentCompressionResistancePriority(.required, for: .vertical)
@@ -207,7 +207,9 @@ private extension NIPostFeedCollectionViewCell {
     
     func updateCellForListType(with isExpanded: Bool) {
         let descriptionLabelNumberOfLines = isExpanded ? .zero : Constant.defaultDescriptionNumberOfLines
-        configureMainStackViewContent(descriptionLabelNumberOfLines: descriptionLabelNumberOfLines)
+        configureMainStackViewContent(
+            descriptionLabelNumberOfLines: descriptionLabelNumberOfLines
+        )
         
         configureContentView()
         updateExpandButton(with: isExpanded)
@@ -218,7 +220,7 @@ private extension NIPostFeedCollectionViewCell {
     func updateCellForGridType() {
         configureMainStackViewContent(
             isUnderlineViewHidden: true,
-            titleLabelNumberOfLines: .zero
+            titleLabelTextAlignment: .center
         )
         configureContentView(
             borderColor: UIColor.black.cgColor,
@@ -263,12 +265,12 @@ private extension NIPostFeedCollectionViewCell {
     func configureMainStackViewContent(
         isUnderlineViewHidden: Bool = false,
         isExpandButtonHidden: Bool = true,
-        titleLabelNumberOfLines: Int = 1,
+        titleLabelTextAlignment: NSTextAlignment = .left,
         descriptionLabelNumberOfLines: Int = .zero
     ) {
         underlineView.isHidden = isUnderlineViewHidden
         postExpandButton.isHidden = isExpandButtonHidden
-        postTitleLabel.numberOfLines = titleLabelNumberOfLines
+        postTitleLabel.textAlignment = titleLabelTextAlignment
         postDescriptionLabel.numberOfLines = descriptionLabelNumberOfLines
     }
     

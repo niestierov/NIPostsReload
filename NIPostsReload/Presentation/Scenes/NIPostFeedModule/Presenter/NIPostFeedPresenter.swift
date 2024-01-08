@@ -50,7 +50,6 @@ final class DefaultNIPostFeedPresenter: NIPostFeedPresenter {
     private var searchWorkItem: DispatchWorkItem?
     private var isInitialQuery = true
     private var savedPosts: [NIPostViewState.Post] = []
-    private var searchQuary: String?
     
     // MARK: - Life Cycle -
     
